@@ -1,0 +1,6 @@
+{
+  "undef": true,
+  "unused": false,
+  "predef": [ "console", "require" ],
+  "esnext": true
+}
