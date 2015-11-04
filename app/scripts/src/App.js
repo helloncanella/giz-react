@@ -7,11 +7,13 @@ import ReactDOM from 'react-dom';
 var App = React.createClass({
   render: function() {
     return (
-      <div>
-        <Window/>
+      <div className='App'>
+        <Window className='Simulation'/>
+        <Window className='Data'/>
+        <Window className='Graphic'/>
       </div>
     );
   }
 });
 
-ReactDOM.render(<App/>, document.getElementById('main'));
+ReactDOM.render(<App/>, document.getElementById('cointainer'));
