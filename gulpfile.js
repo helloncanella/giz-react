@@ -25,10 +25,10 @@ gulp.task('browserify', bundle); // so you can run `gulp js` to build the file
 
 function bundle() {
 
-  //Update de browserify options if a file was added in the source folder
+  //Config de browserify options if the src folder is empty, or if a file was added in the source folder
   var currentSourceFiles = glob.sync("app/scripts/src/**/*.js");
 
-  if(!_.isEqual(sourceFiles.sort(), currentSourceFiles.sort())){
+  if(_.isEmpty(currentSourceFiles) || !_.isEqual(sourceFiles.sort(), currentSourceFiles.sort())){
     sourceFiles = currentSourceFiles;
     configBrowserify();
   }
@@ -49,12 +49,12 @@ function configBrowserify() {
     debug: true
   };
 
-  opts = Object.assign({}, watchify.args, customOpts);
+  opts = _.assign({}, watchify.args, customOpts);
   b = watchify(browserify(opts));
 
   // add transformations here
   // i.e. b.transform(coffeeify);
-  b.transform("babelify", {presets: ["es2015"]});
+  b.transform("babelify", {presets: ["es2015","react"]});
 
   b.on('update', bundle); // on any dep update, runs the bundler
   b.on('log', gutil.log); // output build logs to terminal
