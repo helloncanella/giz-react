@@ -1,2 +1,10 @@
 @import "app/stylesheets/jquery-ui";
+@import "app/scripts/src/App";
 @import "app/scripts/src/Components/Window/Window";
+@import "app/scripts/src/Components/TimeController/TimeController";
+@import "app/scripts/src/Components/PlayPauseButton/PlayPauseButton";
+@import "app/scripts/src/Components/TimeFlow/TimeFlow";
+
+body{
+  margin: 0;
+}

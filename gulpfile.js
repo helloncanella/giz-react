@@ -1,6 +1,5 @@
 var gulp = require('gulp');
-var plugins = require('gulp-load-plugins')
-();
+var plugins = require('gulp-load-plugins')();
 var gutil = require('gulp-util');
 var browserSync = require('browser-sync').create();
 var watchify = require('watchify');
@@ -38,13 +37,15 @@ gulp.task('sass', function() {
     .pipe(plugins.autoprefixer({browsers: ['last 2 versions'], cascade: false}))
     .pipe(gulp.dest('./app/stylesheets/'))
     .pipe(browserSync.stream());
+
+  console.log('oi');
 });
 
 gulp.task('browserify', bundle); // so you can run `gulp js` to build the file
 
 function bundle() {
 
-  //Config de browserify options if the src folder is empty, or if a file was added in the source folder
+  //Config de browserify if the src folder is empty, or if a file was added in the source folder
   var currentSourceFiles = glob.sync("app/scripts/src/**/*.js");
 
   if (_.isEmpty(currentSourceFiles) || !_.isEqual(sourceFiles.sort(), currentSourceFiles.sort())) {

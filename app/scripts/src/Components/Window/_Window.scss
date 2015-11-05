@@ -1,5 +1,37 @@
-.Window{
-  border: 1px solid black;
+$height: 15vw;
+$margin: 10px;
+
+.Window {
   width: 30vh;
-  height: 14vw;
+  height: $height;
+  position: relative;
+  background-color: white;
+
+  header {
+    width: 100%;
+    height: $height*0.15;
+    background: #2c3e50;
+    position: absolute;
+    top: 0;
+    color: white;
+    padding: 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: helvetica;
+    font-weight: bold;
+    display: flex;
+
+    .label {
+      margin-left: $margin;
+    }
+
+    button.minimizer {
+      color: white;
+      background-color: transparent;
+      border: none;
+      margin-right: $margin;
+    }
+
+  }
 }

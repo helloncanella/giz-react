@@ -9,7 +9,12 @@ class Window extends React.Component {
   }
   render () {
     return (
-      <div className='Window'></div>
+      <div className='Window'>
+        <header>
+          <span className='label'>{this.props.label}</span>
+          <button className='minimizer'><i className="fa fa-minus"></i></button>
+        </header>
+      </div>
     );
   }
 }

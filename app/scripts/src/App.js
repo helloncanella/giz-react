@@ -8,9 +8,10 @@ var App = React.createClass({
   render: function() {
     return (
       <div className='App'>
-        <Window className='Simulation'/>
-        <Window className='Data'/>
-        <Window className='Graphic'/>
+        <Window className='Simulation' label={'SIMULATION'}/>
+        <Window className='Data' label={'DATA'}/>
+        <Window className='Graphic' label={'GRAPHIC'}/>
+        <TimeController />
       </div>
     );
   }

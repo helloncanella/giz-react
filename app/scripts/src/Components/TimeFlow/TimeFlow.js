@@ -1,7 +1,17 @@
 import React from 'react';
+import $ from 'jquery';
+import 'jquery-ui/slider';
 
-class TimeController extends React.Component{
-  render() {}
+
+class TimeFlow extends React.Component {
+  componentDidMount () {
+    $('.TimeFlow').slider();
+  }
+  render () {
+    return (
+      <div className='TimeFlow'></div>
+    );
+  }
 }
 
-export default TimeController;
+export default TimeFlow;
