@@ -1,9 +1,11 @@
-@import "app/stylesheets/jquery-ui";
+@import "app/stylesheets/vendors/bootstrap/bootstrap";
+@import "app/stylesheets/vendors/jquery-ui/jquery-ui";
 @import "app/scripts/src/App";
-@import "app/scripts/src/Components/Window/Window";
-@import "app/scripts/src/Components/TimeController/TimeController";
-@import "app/scripts/src/Components/PlayPauseButton/PlayPauseButton";
-@import "app/scripts/src/Components/TimeFlow/TimeFlow";
+@import "app/scripts/src/components/Window/Window";
+@import "app/scripts/src/components/TimeController/TimeController";
+@import "app/scripts/src/components/TimeRangeSetter/TimeRangeSetter";
+@import "app/scripts/src/components/Button/Button";
+@import "app/scripts/src/components/Slider/Slider";
 
 body{
   margin: 0;
