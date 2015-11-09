@@ -1,8 +1,54 @@
 .TimeRangeSetter{
-  background: red;
-  width: 100px;
-  height: 100px;
+  background: white;
+  width: 250px;
+  height: 200px;
   position: absolute;
-  left: 5vw;
+  left: 3vw;
   bottom: 10vh;
+  border-radius: 3px;
+  font-family: helvetica;
+  padding:12.5px;
+  padding-left:20px;
+
+  h5{
+    text-align: center;
+  }
+
+  form{
+
+    .form-group{
+
+      margin-top: 10px;
+
+      label{
+        margin-right: 7.5px;
+      }
+
+      input{
+        width:63.5%;
+        text-align: center;
+      }
+
+    }
+
+    label[for='end-time']{
+      margin-right: 11px;
+    }
+  }
+
+
+  button{
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    border: 0;
+    border-radius: 3px;
+    outline: none;
+    width: 60px;
+    background: #2ecc71;
+    box-shadow: 0 3px 1px #27ae60;
+    position: absolute;
+    bottom:12%;
+    right: 8%;
+  }
 }

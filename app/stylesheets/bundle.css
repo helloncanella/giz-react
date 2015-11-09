@@ -5906,7 +5906,7 @@ body .ui-tooltip {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding: 7.5px 0px 7.5px 15px;
+  padding: 30px 0px 30px 15px;
   background: #2c3e50;
   -webkit-align-items: center;
   -ms-flex-align: center;
@@ -5922,12 +5922,40 @@ body .ui-tooltip {
     margin-right: 35px; }
 
 .TimeRangeSetter {
-  background: red;
-  width: 100px;
-  height: 100px;
+  background: white;
+  width: 250px;
+  height: 200px;
   position: absolute;
-  left: 5vw;
-  bottom: 10vh; }
+  left: 3vw;
+  bottom: 10vh;
+  border-radius: 3px;
+  font-family: helvetica;
+  padding: 12.5px;
+  padding-left: 20px; }
+  .TimeRangeSetter h5 {
+    text-align: center; }
+  .TimeRangeSetter form .form-group {
+    margin-top: 10px; }
+    .TimeRangeSetter form .form-group label {
+      margin-right: 7.5px; }
+    .TimeRangeSetter form .form-group input {
+      width: 63.5%;
+      text-align: center; }
+  .TimeRangeSetter form label[for='end-time'] {
+    margin-right: 11px; }
+  .TimeRangeSetter button {
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    border: 0;
+    border-radius: 3px;
+    outline: none;
+    width: 60px;
+    background: #2ecc71;
+    box-shadow: 0 3px 1px #27ae60;
+    position: absolute;
+    bottom: 12%;
+    right: 8%; }
 
 .Button {
   background-color: transparent;
