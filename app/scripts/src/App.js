@@ -9,6 +9,7 @@ import TimeController from './components/TimeController/TimeController';
 
 import TimeControllerStore from './stores/TimeControllerStore';
 
+
 function getAppStates() {
   return ({
     runningState: TimeControllerStore.getRunningState(),
@@ -16,11 +17,14 @@ function getAppStates() {
   });
 }
 
+var self;
+
 class App extends React.Component {
 
   constructor(props){
     super(props);
     this.state = getAppStates();
+    self = this;
   }
 
   componentDidMount () {
@@ -44,7 +48,7 @@ class App extends React.Component {
   }
 
   _onChange () {
-    this.setState(getAppStates());
+    self.setState(getAppStates());
   }
 
 }

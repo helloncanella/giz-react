@@ -1,21 +1,21 @@
-import React from 'react';
+import React  from 'react';
 import Button from '../Button/Button';
 import Slider from '../Slider/Slider';
+import TimeControllerActions from '../../actions/TimeControllerActions';
 
 class TimeController extends React.Component {
 
   onStop(){
-
+    TimeControllerActions.pressedStopButton();
   }
 
   onPlayOrPause (){
-    
+    TimeControllerActions.pressedPlayAndPauseButton();
   }
 
   render () {
-
     var fontAwesome = {
-      PlayPause: (this.props.runnningState === 'paused') ? 'fa fa-pause' : 'fa fa-play'
+      PlayPause: (this.props.runningState === 'running') ? 'fa fa-pause' : 'fa fa-play'
     };
 
     return (
