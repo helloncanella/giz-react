@@ -1,0 +1,29 @@
+.Warning{
+
+  text-align: center;
+  background: white;
+  position: absolute;
+  top:42.5%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  border-radius: 5px;
+  padding: 3vh;
+  z-index:99999;
+  display: none;
+
+  *{
+    margin-bottom: 13px;
+  }
+
+  button{
+    color: white;
+    font-weight: bold;
+    font-size: 17px;
+    border: 0;
+    border-radius: 3px;
+    outline: none;
+    width: 30%;
+    background: #2ecc71;
+    box-shadow: 0 3px 1px #27ae60;
+  }
+}

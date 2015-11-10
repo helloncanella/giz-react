@@ -6,6 +6,7 @@ import $ from 'jquery';
 import Window from './components/Window/Window';
 import TimeRangeSetter from './components/TimeRangeSetter/TimeRangeSetter';
 import TimeController from './components/TimeController/TimeController';
+import Warning from './components/Warning/Warning';
 
 import TimeControllerStore from './stores/TimeControllerStore';
 
@@ -41,6 +42,7 @@ class App extends React.Component {
         <Window id={'Simulation'} label={'SIMULATION'}/>
         <Window id={'Data'} label={'DATA'}/>
         <Window id={'Graphic'} label={'CHART'}/>
+        <Warning message={'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '}/>
         <TimeRangeSetter id={'TimeIntervalBox'}/>
         <TimeController id={'TimeController'} runningState={this.state.runningState} timePosition={this.state.timePosition}/>
       </div>
