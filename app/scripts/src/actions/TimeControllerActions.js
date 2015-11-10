@@ -9,7 +9,7 @@ var TimeControllerActions = {
       data:{}
     });
   },
-  pressedPlayAndPauseButton: function() {    
+  pressedPlayAndPauseButton: function() {
     AppDispatcher.handleAction({
       type: TimeControllerConstants.PRESSED_PLAYPAUSE_BUTTON,
       data:{}
