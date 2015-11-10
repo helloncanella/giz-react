@@ -7,7 +7,7 @@
 6 silly lifecycle giz-react@~prestart: no script for prestart, continuing
 7 info lifecycle giz-react@~start: giz-react@
 8 verbose lifecycle giz-react@~start: unsafe-perm in lifecycle true
-9 verbose lifecycle giz-react@~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/home/hellon/Dropbox/code/giz-react/node_modules/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/helloncanella/Videos/popcorn:/home/helloncanella/Videos/popcorn
+9 verbose lifecycle giz-react@~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/home/hellon/Dropbox/code/giz-react/node_modules/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/helloncanella/Videos/popcorn
 10 verbose lifecycle giz-react@~start: CWD: /home/hellon/Dropbox/code/giz-react
 11 silly lifecycle giz-react@~start: Args: [ '-c', 'gulp serve' ]
 12 silly lifecycle giz-react@~start: Returned: code: 1  signal: null
