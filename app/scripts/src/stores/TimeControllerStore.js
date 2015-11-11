@@ -2,15 +2,16 @@ import _ from 'lodash';
 import EventEmmitter from 'events';
 
 import AppDispatcher from '../dispatcher/AppDispatcher';
-import TimeControllerConstants from '../constants/TimeControllerConstants';
+import Constants from '../constants/AppConstants';
+
+import WarningStore from '../stores/WarningStore';
 
 const
   STOPPED = 'stopped',
   RUNNING = 'running',
   PAUSED = 'paused';
 
-var _runningState = STOPPED,
-  _timePosition = 0;
+var _runningState = STOPPED, _timePosition = 0, _timeInterval = {};
 
 var TimeControllerStore = _.assign({}, EventEmmitter.prototype, {
 
@@ -32,32 +33,37 @@ var TimeControllerStore = _.assign({}, EventEmmitter.prototype, {
 
   removeChangeListener: function(callback) {
     this.removeListener('change', callback);
-  }
+  },
+
+  dispatchToken:AppDispatcher.register(function(action) {
+    switch (action.type) {
+
+      case Constants.PRESSED_STOP_BUTTON:
+        _runningState = STOPPED;
+        break;
+
+      case Constants.PRESSED_PLAYPAUSE_BUTTON:
+        console.log(2);  
+        AppDispatcher.waitFor([WarningStore.dispatchToken]);
+
+        if(!_.isEmpty(_.values(_timeInterval))){
+          if (_runningState == PAUSED || _runningState == STOPPED) {
+            _runningState = RUNNING;
+          } else {
+            _runningState = PAUSED;
+          }
+        }
+        break;
+
+      default:
+    }
+
+    TimeControllerStore.emitChange();
+
+  })
 
 });
 
-AppDispatcher.register(function(action) {
-  let constants = TimeControllerConstants;
 
-  switch (action.type) {
-
-    case constants.PRESSED_STOP_BUTTON:
-      _runningState = STOPPED;
-      break;
-
-    case constants.PRESSED_PLAYPAUSE_BUTTON:
-      if (_runningState == PAUSED) {
-        _runningState = RUNNING;
-      } else {
-        _runningState = PAUSED;
-      }
-      break;
-
-    default:
-  }
-
-  TimeControllerStore.emitChange();
-
-});
 
 export default TimeControllerStore;

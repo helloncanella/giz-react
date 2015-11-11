@@ -1,11 +1,19 @@
 import React from 'react';
 import $ from 'jquery';
+import WarningActions from '../../actions/WarningActions';
 
 
 class Warning extends React.Component {
 
+  componentWillReceiveProps(nextProps){
+    if(nextProps.message !== ''){
+      $('.Warning').css('display','block');
+    }
+  }
+
   onClick(){
     $('.Warning').css('display','none');
+    WarningActions.disableWarning();
   }
 
   render () {

@@ -47,6 +47,7 @@ function bundle() {
 
   //Config de browserify if the src folder is empty, or if a file was added in the source folder
   var currentSourceFiles = glob.sync("app/scripts/src/**/*.js");
+  console.log(currentSourceFiles);
 
   if (_.isEmpty(currentSourceFiles) || !_.isEqual(sourceFiles.sort(), currentSourceFiles.sort())) {
     sourceFiles = currentSourceFiles;

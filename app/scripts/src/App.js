@@ -9,12 +9,18 @@ import TimeController from './components/TimeController/TimeController';
 import Warning from './components/Warning/Warning';
 
 import TimeControllerStore from './stores/TimeControllerStore';
+import WarningStore from './stores/WarningStore';
 
 
 function getAppStates() {
   return ({
-    runningState: TimeControllerStore.getRunningState(),
-    timePosition: TimeControllerStore.getTimePosition()
+    TimeController:{
+      runningState: TimeControllerStore.getRunningState(),
+      timePosition: TimeControllerStore.getTimePosition(),
+    },
+    Warning: {
+      message:WarningStore.getMessage()
+    }
   });
 }
 
@@ -25,32 +31,40 @@ class App extends React.Component {
   constructor(props){
     super(props);
     this.state = getAppStates();
+    console.log(this.state);
     self = this;
   }
 
   componentDidMount () {
     TimeControllerStore.addChangeListener(this._onChange);
+    WarningStore.addChangeListener(this._onChange);
   }
 
   componentWillUnmount () {
     TimeControllerStore.removeChangeListener(this._onChange);
+    WarningStore.removeChangeListener(this._onChange);
   }
 
   render () {
+    var TimeControllerStates= this.state.TimeController;
+    var WarningStates= this.state.Warning;
+
+
     return (
       <div className='App'>
         <Window id={'Simulation'} label={'SIMULATION'}/>
         <Window id={'Data'} label={'DATA'}/>
         <Window id={'Graphic'} label={'CHART'}/>
-        <Warning message={'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '}/>
+        <Warning message={WarningStates.message} />
         <TimeRangeSetter id={'TimeIntervalBox'}/>
-        <TimeController id={'TimeController'} runningState={this.state.runningState} timePosition={this.state.timePosition}/>
+        <TimeController id={'TimeController'} runningState={TimeControllerStates.runningState} timePosition={TimeControllerStates.timePosition}/>
       </div>
     );
   }
 
   _onChange () {
     self.setState(getAppStates());
+    console.log(self.state);
   }
 
 }
