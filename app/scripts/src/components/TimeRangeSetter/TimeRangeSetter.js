@@ -5,14 +5,12 @@ import 'jquery-ui/draggable';
 
 import TimeRangeSetterActions from'../../actions/TimeRangeSetterActions';
 
-
 class TimeRangeSetter extends React.Component {
 
   componentDidMount () {
     $('.TimeRangeSetter').draggable();
     $('input').keypress(function (e) {
       var key = String.fromCharCode(e.which);
-
       if(!((/(\.|\d)/).test(key))){
         e.preventDefault();
       }

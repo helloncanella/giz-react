@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 import $ from 'jquery';
 
@@ -29,7 +28,7 @@ function getAppStates() {
 
 var self;
 
-class App extends React.Component {
+class AppView extends React.Component {
   constructor(props){
     super(props);
     this.state = getAppStates();
@@ -51,7 +50,6 @@ class App extends React.Component {
     var WarningStates= this.state.Warning;
     var TimeRangeSetterStates = this.state.TimeRangeSetter;
 
-    console.log(this.state);
 
     return (
       <div className='App'>
@@ -71,6 +69,4 @@ class App extends React.Component {
 
 }
 
-
-
-ReactDOM.render(<App/>, document.getElementById('cointainer'));
+export default AppView;

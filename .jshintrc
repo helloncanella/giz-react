@@ -1,6 +1,6 @@
 {
   "undef": true,
   "unused": false,
-  "predef": [ "console", "require", "document" ],
+  "predef": [ "console", "require", "document", "Worker", "onmessage", "postMessage", "setInterval" ],
   "esnext": true
 }

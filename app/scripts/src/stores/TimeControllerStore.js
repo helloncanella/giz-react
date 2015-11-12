@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import EventEmmitter from 'events';
 
-import AppDispatcher from '../dispatcher/AppDispatcher';
+import ViewDispatcher from '../dispatcher/ViewDispatcher';
 import Constants from '../constants/AppConstants';
 
 import WarningStore from '../stores/WarningStore';
@@ -36,8 +36,8 @@ var TimeControllerStore = _.assign({}, EventEmmitter.prototype, {
     this.removeListener('change', callback);
   },
 
-  dispatchToken: AppDispatcher.register(function(action) {
-    AppDispatcher.waitFor([WarningStore.dispatchToken]);
+  dispatchToken: ViewDispatcher.register(function(action) {
+    ViewDispatcher.waitFor([WarningStore.dispatchToken]);
 
     if (!WarningStore.getMessage()) {
       switch (action.type) {

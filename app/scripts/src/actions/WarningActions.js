@@ -1,10 +1,10 @@
-import AppDispatcher from '../dispatcher/AppDispatcher';
+import ViewDispatcher from '../dispatcher/ViewDispatcher';
 import Constants from '../constants/AppConstants';
 
 
 var WarningActions = {
   disableWarning: function() {
-    AppDispatcher.handleAction({
+    ViewDispatcher.handleAction({
       type: Constants.DISABLE_WARNING,
     });
   }

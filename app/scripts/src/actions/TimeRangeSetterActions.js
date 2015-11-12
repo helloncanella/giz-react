@@ -1,11 +1,11 @@
-import AppDispatcher from '../dispatcher/AppDispatcher';
+import ViewDispatcher from '../dispatcher/ViewDispatcher';
 import Constants from '../constants/AppConstants';
 import _ from 'lodash';
 
 
 var TimeRangeSetterActions = {
   buttonPressed: function(intervalData) {
-    AppDispatcher.handleAction({
+    ViewDispatcher.handleAction({
       type: Constants.INTERVAL_SETTER_BUTTON_PRESSED,
       interval: _.assign({},intervalData)
     });
