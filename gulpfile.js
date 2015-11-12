@@ -38,7 +38,6 @@ gulp.task('sass', function() {
     .pipe(gulp.dest('./app/stylesheets/'))
     .pipe(browserSync.stream());
 
-  console.log('oi');
 });
 
 gulp.task('browserify', bundle); // so you can run `gulp js` to build the file
@@ -47,7 +46,6 @@ function bundle() {
 
   //Config de browserify if the src folder is empty, or if a file was added in the source folder
   var currentSourceFiles = glob.sync("app/scripts/src/**/*.js");
-  console.log(currentSourceFiles);
 
   if (_.isEmpty(currentSourceFiles) || !_.isEqual(sourceFiles.sort(), currentSourceFiles.sort())) {
     sourceFiles = currentSourceFiles;

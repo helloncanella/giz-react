@@ -20,6 +20,9 @@ function getAppStates() {
     },
     Warning: {
       message:WarningStore.getMessage()
+    },
+    TimeRangeSetter: {
+      isVisible: (WarningStore.verifyTimeIntervalAcceptance()) ? false: true
     }
   });
 }
@@ -27,11 +30,9 @@ function getAppStates() {
 var self;
 
 class App extends React.Component {
-
   constructor(props){
     super(props);
     this.state = getAppStates();
-    console.log(this.state);
     self = this;
   }
 
@@ -48,7 +49,9 @@ class App extends React.Component {
   render () {
     var TimeControllerStates= this.state.TimeController;
     var WarningStates= this.state.Warning;
+    var TimeRangeSetterStates = this.state.TimeRangeSetter;
 
+    console.log(this.state);
 
     return (
       <div className='App'>
@@ -56,7 +59,7 @@ class App extends React.Component {
         <Window id={'Data'} label={'DATA'}/>
         <Window id={'Graphic'} label={'CHART'}/>
         <Warning message={WarningStates.message} />
-        <TimeRangeSetter id={'TimeIntervalBox'}/>
+        <TimeRangeSetter id={'TimeIntervalBox'} isVisible={TimeRangeSetterStates.isVisible}/>
         <TimeController id={'TimeController'} runningState={TimeControllerStates.runningState} timePosition={TimeControllerStates.timePosition}/>
       </div>
     );
@@ -64,7 +67,6 @@ class App extends React.Component {
 
   _onChange () {
     self.setState(getAppStates());
-    console.log(self.state);
   }
 
 }

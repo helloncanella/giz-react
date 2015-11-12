@@ -3,6 +3,9 @@ import $ from 'jquery';
 import 'jquery-ui/resizable';
 import 'jquery-ui/draggable';
 
+import TimeRangeSetterActions from'../../actions/TimeRangeSetterActions';
+
+
 class TimeRangeSetter extends React.Component {
 
   componentDidMount () {
@@ -14,6 +17,22 @@ class TimeRangeSetter extends React.Component {
         e.preventDefault();
       }
     });
+  }
+
+  componentDidUpdate(){
+    if(!this.props.isVisible){
+      $('.TimeRangeSetter').css('display','none');
+    }
+  }
+
+
+  onClick() {
+    let interval = {
+      start: +$('input#start-time').val(),
+      end: +$('input#end-time').val()
+    };
+
+    TimeRangeSetterActions.buttonPressed(interval);
   }
 
   render () {
@@ -30,7 +49,7 @@ class TimeRangeSetter extends React.Component {
             <input className='form-control' id='end-time'></input>
           </div>
         </form>
-        <button>OK</button>
+        <button onClick={this.onClick}>OK</button>
       </div>
     );
   }

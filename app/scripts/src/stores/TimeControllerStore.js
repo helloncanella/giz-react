@@ -6,12 +6,13 @@ import Constants from '../constants/AppConstants';
 
 import WarningStore from '../stores/WarningStore';
 
-const
-  STOPPED = 'stopped',
+const STOPPED = 'stopped',
   RUNNING = 'running',
   PAUSED = 'paused';
 
-var _runningState = STOPPED, _timePosition = 0, _timeInterval = {};
+var _runningState = STOPPED,
+  _timePosition = 0,
+  _timeInterval = {};
 
 var TimeControllerStore = _.assign({}, EventEmmitter.prototype, {
 
@@ -35,35 +36,36 @@ var TimeControllerStore = _.assign({}, EventEmmitter.prototype, {
     this.removeListener('change', callback);
   },
 
-  dispatchToken:AppDispatcher.register(function(action) {
-    switch (action.type) {
+  dispatchToken: AppDispatcher.register(function(action) {
+    AppDispatcher.waitFor([WarningStore.dispatchToken]);
 
-      case Constants.PRESSED_STOP_BUTTON:
-        _runningState = STOPPED;
-        break;
+    if (!WarningStore.getMessage()) {
+      switch (action.type) {
 
-      case Constants.PRESSED_PLAYPAUSE_BUTTON:
-        console.log(2);  
-        AppDispatcher.waitFor([WarningStore.dispatchToken]);
+        case Constants.PRESSED_STOP_BUTTON:
+          _runningState = STOPPED;
+          break;
 
-        if(!_.isEmpty(_.values(_timeInterval))){
+        case Constants.PRESSED_PLAYPAUSE_BUTTON:
+
           if (_runningState == PAUSED || _runningState == STOPPED) {
             _runningState = RUNNING;
           } else {
             _runningState = PAUSED;
           }
+          break;
+
+        case Constants.INTERVAL_SETTER_BUTTON_PRESSED:
+          _timeInterval = action.interval;
+          console.log(_timeInterval);
+          break;
+        default :
         }
-        break;
-
-      default:
+      }
+      TimeControllerStore.emitChange();
     }
-
-    TimeControllerStore.emitChange();
-
-  })
+  ),
 
 });
-
-
 
 export default TimeControllerStore;
