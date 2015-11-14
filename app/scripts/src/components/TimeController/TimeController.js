@@ -2,14 +2,17 @@ import React  from 'react';
 import Button from '../Button/Button';
 import Slider from '../Slider/Slider';
 import TimeControllerActions from '../../actions/TimeControllerActions';
+import DataProcessorActions from '../../actions/DataProcessorActions';
 
 class TimeController extends React.Component {
 
   onStop(){
+    DataProcessorActions.turnOff();
     TimeControllerActions.pressedStopButton();
   }
 
   onPlayOrPause (){
+    DataProcessorActions.turnOn();
     TimeControllerActions.pressedPlayAndPauseButton();
   }
 

@@ -1,16 +1,17 @@
-import ViewDispatcher from '../dispatcher/ViewDispatcher';
+import AppDispatcher from '../dispatcher/AppDispatcher';
 import Constants from '../constants/AppConstants';
+
 
 
 var TimeControllerActions = {
   pressedStopButton: function() {
-    ViewDispatcher.handleAction({
+    AppDispatcher.handleAction({
       type: Constants.PRESSED_STOP_BUTTON,
       data:{}
     });
   },
   pressedPlayAndPauseButton: function() {
-    ViewDispatcher.handleAction({
+    AppDispatcher.handleAction({
       type: Constants.PRESSED_PLAYPAUSE_BUTTON,
       data:{}
     });
