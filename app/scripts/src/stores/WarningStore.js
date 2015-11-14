@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import EventEmmitter from 'events';
 
-import ViewDispatcher from '../dispatcher/ViewDispatcher';
+import AppDispatcher from '../dispatcher/AppDispatcher';
 import Constants from '../constants/AppConstants';
 
 var _message = '', _timeInterval={}, _intervalAccepted=false;
@@ -32,7 +32,7 @@ var WarningStore = _.assign({}, EventEmmitter.prototype, {
     this.removeListener('change', callback);
   },
 
-  dispatchToken: ViewDispatcher.register(function(action) {
+  dispatchToken: AppDispatcher.register(function(action) {
 
     switch (action.type) {
 

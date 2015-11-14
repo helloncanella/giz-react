@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import EventEmmitter from 'events';
 
-import ViewDispatcher from '../dispatcher/ViewDispatcher';
+import AppDispatcher from '../dispatcher/AppDispatcher';
 import Constants from '../constants/AppConstants';
 
 import WarningStore from '../stores/WarningStore';
@@ -36,14 +36,15 @@ var TimeControllerStore = _.assign({}, EventEmmitter.prototype, {
     this.removeListener('change', callback);
   },
 
-  dispatchToken: ViewDispatcher.register(function(action) {
-    ViewDispatcher.waitFor([WarningStore.dispatchToken]);
+  dispatchToken: AppDispatcher.register(function(action) {
+    AppDispatcher.waitFor([WarningStore.dispatchToken]);
 
     if (!WarningStore.getMessage()) {
       switch (action.type) {
 
         case Constants.PRESSED_STOP_BUTTON:
           _runningState = STOPPED;
+
           break;
 
         case Constants.PRESSED_PLAYPAUSE_BUTTON:
@@ -57,15 +58,12 @@ var TimeControllerStore = _.assign({}, EventEmmitter.prototype, {
 
         case Constants.INTERVAL_SETTER_BUTTON_PRESSED:
           _timeInterval = action.interval;
-          console.log(_timeInterval);
           break;
-        default :
-        }
+        default:
       }
-      TimeControllerStore.emitChange();
     }
-  ),
-
+    TimeControllerStore.emitChange();
+  })
 });
 
 export default TimeControllerStore;
