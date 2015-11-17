@@ -18,9 +18,8 @@ class TimeRangeSetter extends React.Component {
   }
 
   componentDidUpdate(){
-    if(!this.props.isVisible){
-      $('.TimeRangeSetter').css('display','none');
-    }
+    let displayValue = this.props.isVisible ? 'block' : 'none';
+    $('.TimeRangeSetter').css('display',displayValue);
   }
 
 

@@ -4,15 +4,21 @@ import Constants from '../constants/AppConstants';
 
 
 var TimeControllerActions = {
-  pressedStopButton: function() {
+  play: function() {
     AppDispatcher.handleAction({
-      type: Constants.PRESSED_STOP_BUTTON,
+      type: Constants.PLAY,
       data:{}
     });
   },
-  pressedPlayAndPauseButton: function() {
+  pause: function() {
     AppDispatcher.handleAction({
-      type: Constants.PRESSED_PLAYPAUSE_BUTTON,
+      type: Constants.PAUSE,
+      data:{}
+    });
+  },
+  stop: function() {
+    AppDispatcher.handleAction({
+      type: Constants.STOP,
       data:{}
     });
   }

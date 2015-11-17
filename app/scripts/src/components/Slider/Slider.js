@@ -6,13 +6,15 @@ import 'jquery-ui/slider';
 class Slider extends React.Component {
   componentDidMount () {
     $('.Slider').slider({
-      value: this.props.timePosition*100
+      value: this.props.timePosition*100,
     });
   }
 
   componentWillReceiveProps (nextProps) {
     var timePosition = nextProps.timePosition*100;
-    $('.Slider').slider("option", "value", timePosition);
+    $('.Slider').slider({
+      value: timePosition,
+    });
   }
 
   render () {

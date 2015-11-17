@@ -36,13 +36,13 @@ var WarningStore = _.assign({}, EventEmmitter.prototype, {
 
     switch (action.type) {
 
-      case Constants.PRESSED_PLAYPAUSE_BUTTON:
+      case Constants.PLAY:
         if(_.isEmpty(_.values(_timeInterval))){
           _message = 'You didn\'t set a time interval. Please, correct it.';
         }
         break;
-      case Constants.INTERVAL_SETTER_BUTTON_PRESSED:
-        let interval = action.interval, start = interval.start, end = interval.end;
+      case Constants.SET_TIME_INTERVAL:
+        let interval = action.data.interval, start = interval.start, end = interval.end;
         if(start>end || start==end){
           _intervalAccepted = false;
           _message='The initial time value must be greater than the final';

@@ -8,6 +8,7 @@ import TimeController from './components/TimeController/TimeController';
 import Warning from './components/Warning/Warning';
 
 import TimeControllerStore from './stores/TimeControllerStore';
+import TimeRangeSetterStore from './stores/TimeRangeSetterStore';
 import WarningStore from './stores/WarningStore';
 
 
@@ -21,10 +22,12 @@ function getAppStates() {
       message:WarningStore.getMessage()
     },
     TimeRangeSetter: {
-      isVisible: (WarningStore.verifyTimeIntervalAcceptance()) ? false: true
+      isVisible: TimeRangeSetterStore.isVisible()
     }
   });
 }
+
+
 
 var self;
 
@@ -38,11 +41,13 @@ class AppView extends React.Component {
   componentDidMount () {
     TimeControllerStore.addChangeListener(this._onChange);
     WarningStore.addChangeListener(this._onChange);
+    TimeRangeSetterStore.addChangeListener(this._onChange);
   }
 
   componentWillUnmount () {
     TimeControllerStore.removeChangeListener(this._onChange);
     WarningStore.removeChangeListener(this._onChange);
+    TimeRangeSetter.removeChangeListener(this._onChange);
   }
 
   render () {
@@ -50,6 +55,7 @@ class AppView extends React.Component {
     var WarningStates= this.state.Warning;
     var TimeRangeSetterStates = this.state.TimeRangeSetter;
 
+    console.log(TimeRangeSetterStates.isVisible);
 
     return (
       <div className='App'>

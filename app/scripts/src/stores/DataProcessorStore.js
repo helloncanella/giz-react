@@ -5,57 +5,76 @@ import AppDispatcher from '../dispatcher/AppDispatcher';
 import Constants from '../constants/AppConstants';
 import DataProcessorActions from '../actions/DataProcessorActions';
 
-var startedWorker;
+import WarningStore from '../stores/WarningStore';
+
 var startTime;
 var number = 0;
 var dataGeneration;
+var _timeIntervalObject ={};
+var pastTime = [0];
+var duration;
+var step = 300;
+var next, index;
 
-function wakeWorker() {
-  if (!startedWorker) {
+function wakeWorkerAtIndex(desiredPosition) {
+  dataGeneration = setInterval(function () {
+    let nextTime;
 
-    var worker = new Worker('scripts/dist/worker.js');
+    if(pastTime[desiredPosition+1]){
+      nextTime = pastTime[desiredPosition+1];
+    }else{
+      nextTime = pastTime[desiredPosition]+step;
+      pastTime.push(nextTime) ;
+    }
 
-    worker.onmessage = function(e) {
-      console.log(e.data[0], e.data[1]);
-    };
+    desiredPosition++;
+    index = desiredPosition;
 
-    dataGeneration = setInterval(function() {
+    let ratio = nextTime/duration;
 
-      worker.postMessage([time(), number,]);
-      number++;
+    if(ratio<=0.95){
+      DataProcessorActions.update({time: nextTime});
+    }else{
+      stopWorker();
+    }
+  }, step);
 
-      function time() {
-        if (!startTime) {
-          startTime = Date.now();
-        }
-
-        return Date.now() - startTime;
-      }
-
-    }, 1000);
-
-    startedWorker = true;
-  }
 }
 
-function sleepWorker(){
+function stopWorker() {
+  index = 0;
+  pauseWorker();
+}
+
+function pauseWorker(){
   clearInterval(dataGeneration);
 }
-
 
 var DataProcessorStore = _.assign({}, EventEmmitter.prototype, {
 
   dispatchToken: AppDispatcher.register(function(action) {
 
-    switch (action.type) {
-      case Constants.TURN_ON_DATA_PROCESSOR:
-        wakeWorker();
-        break;
-      case Constants.TURN_OFF_DATA_PROCESSOR:
-        console.log('ok');
-        sleepWorker();
-        break;
-      default:
+    AppDispatcher.waitFor([WarningStore.dispatchToken]);
+    if (!WarningStore.getMessage()) {
+      switch (action.type) {
+        case Constants.PLAY:
+          if(!index){
+            index = 0;
+          }
+          wakeWorkerAtIndex(index);
+          break;
+        case Constants.PAUSE:
+          pauseWorker();
+          break;
+        case Constants.STOP:
+          stopWorker();
+          break;
+        case Constants.SET_TIME_INTERVAL:
+          _timeIntervalObject= action.data.interval;
+          duration = (_timeIntervalObject.end-_timeIntervalObject.start + 1)*1000;
+          break;
+        default:
+      }
     }
   })
 

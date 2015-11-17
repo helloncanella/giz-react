@@ -6,26 +6,12 @@ import Constants from '../constants/AppConstants';
 
 import WarningStore from '../stores/WarningStore';
 
-const STOPPED = 'stopped',
-  RUNNING = 'running',
-  PAUSED = 'paused';
-
-var _runningState = STOPPED,
-  _timeInterval = {},
-  _ratio = 0,
-  _duration,
-  _pausedTime=0,
-  _time;
+var _isVisible = true;
 
 var TimeControllerStore = _.assign({}, EventEmmitter.prototype, {
 
-  getRunningState: function() {
-    return _runningState;
-  },
-
-  getTimePosition: function() {
-    console.log(_ratio);
-    return _ratio;
+  isVisible: function() {
+    return _isVisible;
   },
 
   emitChange: function(argument) {
@@ -47,37 +33,25 @@ var TimeControllerStore = _.assign({}, EventEmmitter.prototype, {
       switch (action.type) {
 
         case Constants.STOP:
-          _runningState = STOPPED;
-          _ratio=0;
+          _isVisible = true;
           break;
 
-        case Constants.PLAY:
-          _runningState = RUNNING;
-          break;
-
-        case Constants.PAUSE:
-          _runningState = PAUSED;
-          _pausedTime=_time;
-          break;
+          case Constants.PLAY:
+            if(_isVisible){
+              _isVisible = false;
+            }
+            break;
 
         case Constants.SET_TIME_INTERVAL:
-          _timeInterval = action.data.interval;
-          _duration = (_timeInterval.end -_timeInterval.start)*1000;
-          break;
+          let timeInterval = action.data.interval;
+          let duration = (timeInterval.end -timeInterval.start)*1000;
 
-        case Constants.UPDATE:
-          _time = action.data.time;
-
-          _ratio = _time/_duration;
-
-          if(_ratio>1){
-            _ratio = 0;
-            _runningState = STOPPED;
+          if(duration>0){
+            _isVisible = false;
           }
           break;
+
         default:
-
-
       }
     }
     TimeControllerStore.emitChange();
