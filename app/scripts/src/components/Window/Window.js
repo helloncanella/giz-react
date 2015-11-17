@@ -5,7 +5,7 @@ import 'jquery-ui/draggable';
 
 class Window extends React.Component {
   componentDidMount () {
-    $('.Window').resizable({handles: "all"}).draggable();
+    $('.Window').resizable({handles: "all"}).draggable({handle:'header'});
   }
   render () {
     return (
