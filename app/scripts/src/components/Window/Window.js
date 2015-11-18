@@ -14,6 +14,8 @@ class Window extends React.Component {
           <span className='label'>{this.props.label}</span>
           <button className='minimizer'><i className="fa fa-minus"></i></button>
         </header>
+        {this.props.children}
+
       </div>
     );
   }

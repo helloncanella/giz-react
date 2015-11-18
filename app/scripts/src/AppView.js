@@ -2,7 +2,9 @@ import React from 'react';
 
 import $ from 'jquery';
 
-import Window from './components/Window/Window';
+import Simulation from './components/Simulation/Simulation';
+import DataTable from './components/DataTable/DataTable';
+import Chart from './components/Chart/Chart';
 import TimeRangeSetter from './components/TimeRangeSetter/TimeRangeSetter';
 import TimeController from './components/TimeController/TimeController';
 import Warning from './components/Warning/Warning';
@@ -59,9 +61,7 @@ class AppView extends React.Component {
 
     return (
       <div className='App'>
-        <Window id={'Simulation'} label={'SIMULATION'}/>
-        <Window id={'Data'} label={'DATA'}/>
-        <Window id={'Graphic'} label={'CHART'}/>
+        <Simulation/>
         <Warning message={WarningStates.message} />
         <TimeRangeSetter id={'TimeIntervalBox'} isVisible={TimeRangeSetterStates.isVisible}/>
         <TimeController id={'TimeController'} runningState={TimeControllerStates.runningState} timePosition={TimeControllerStates.timePosition}/>
