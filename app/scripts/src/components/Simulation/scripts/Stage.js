@@ -1,0 +1,16 @@
+var EaseljsStage = createjs.Stage;
+
+function Stage(canvasId) {
+  EaseljsStage.call(this, canvasId);
+
+}
+
+Stage.prototype = Object.create(EaseljsStage.prototype);
+
+Stage.prototype.constructor = Stage;
+
+Stage.prototype.setSelectedChild = function(child) {
+  this.selectedChild = child;
+};
+
+export default Stage;
