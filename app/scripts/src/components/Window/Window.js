@@ -5,14 +5,16 @@ import 'jquery-ui/draggable';
 
 class Window extends React.Component {
   componentDidMount () {
-    $('.Window').resizable({handles: "all"}).draggable({handle:'header'});
+    $('.Window').resizable({handles: "all", aspectRatio: true, minHeight: 300, minWidth: 400}).draggable({handle: 'header'});
   }
   render () {
     return (
       <div className='Window' id={this.props.id}>
         <header>
           <span className='label'>{this.props.label}</span>
-          <button className='minimizer'><i className="fa fa-minus"></i></button>
+          <button className='minimizer'>
+            <i className="fa fa-minus"></i>
+          </button>
         </header>
         {this.props.children}
 

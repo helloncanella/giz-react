@@ -62,9 +62,6 @@ class AppView extends React.Component {
     return (
       <div className='App'>
         <Simulation/>
-        <Warning message={WarningStates.message} />
-        <TimeRangeSetter id={'TimeIntervalBox'} isVisible={TimeRangeSetterStates.isVisible}/>
-        <TimeController id={'TimeController'} runningState={TimeControllerStates.runningState} timePosition={TimeControllerStates.timePosition}/>
       </div>
     );
   }

@@ -9,18 +9,36 @@ import 'jquery-ui/draggable';
 var listOfDraw;
 var selectedBody;
 
+var stage;
+
 class Simulation extends React.Component {
 
   componentDidMount () {
     this.canvasId = 'easeljs';
     this.scale = 100;
-    this.artist = new Artist(this.canvasId);
 
     this.canvas = $('#' + this.canvasId);
+    this.setupCanvas();
+    this.artist = new Artist(this.canvasId);
     this.stage = this.artist.stage;
     this.converter = new Converter(this.scale);
 
     this.readyToDraw();
+
+    stage = this.stage;
+
+    let self = this;
+    $('#Simulation').on('resize', function(){
+      self.setupCanvas();
+      self.stage.update();
+    });
+  }
+
+  setupCanvas(){
+    this.canvas.attr({
+      width: $('#Simulation').css('width'),
+      height: $('#Simulation').css('height')
+    });
   }
 
   readyToDraw () {
@@ -29,7 +47,7 @@ class Simulation extends React.Component {
 
       let clonedShape = JSON.parse(JSON.stringify(shape));
       let convertedShape = self.converter.convert(clonedShape, 'box2d');
-
+      console.log(stage.children);
       self.readyToDraw();
     });
   }

@@ -5961,9 +5961,15 @@ body .ui-tooltip {
     bottom: 12%;
     right: 8%; }
 
-#Simulation canvas {
-  width: 100%;
-  height: 100%; }
+body {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex; }
+
+#Simulation {
+  margin: auto;
+  height: 400px;
+  width: 600px; }
 
 .Button {
   background-color: transparent;
