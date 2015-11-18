@@ -62,7 +62,7 @@ class AppView extends React.Component {
     return (
       <div className='App'>
         <Simulation/>
-      </div>
+      </div> 
     );
   }
 

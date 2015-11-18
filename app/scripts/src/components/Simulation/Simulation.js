@@ -9,7 +9,6 @@ import 'jquery-ui/draggable';
 var listOfDraw;
 var selectedBody;
 
-var stage;
 
 class Simulation extends React.Component {
 
@@ -25,20 +24,20 @@ class Simulation extends React.Component {
 
     this.readyToDraw();
 
-    stage = this.stage;
-
     let self = this;
-    $('#Simulation').on('resize', function(){
-      self.setupCanvas();
-      self.stage.update();
+    $('#Simulation').on({
+      resize: function() {
+        self.setupCanvas();
+        self.stage.update();
+      },
+      resizestop: function(){
+
+      },
     });
   }
 
-  setupCanvas(){
-    this.canvas.attr({
-      width: $('#Simulation').css('width'),
-      height: $('#Simulation').css('height')
-    });
+  setupCanvas () {
+    this.canvas.attr({width: $('#Simulation').css('width'), height: $('#Simulation').css('height')});
   }
 
   readyToDraw () {
@@ -47,7 +46,6 @@ class Simulation extends React.Component {
 
       let clonedShape = JSON.parse(JSON.stringify(shape));
       let convertedShape = self.converter.convert(clonedShape, 'box2d');
-      console.log(stage.children);
       self.readyToDraw();
     });
   }

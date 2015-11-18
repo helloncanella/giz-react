@@ -5961,15 +5961,11 @@ body .ui-tooltip {
     bottom: 12%;
     right: 8%; }
 
-body {
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex; }
-
 #Simulation {
-  margin: auto;
   height: 400px;
-  width: 600px; }
+  width: 600px;
+  top: 50px;
+  left: 50px; }
 
 .Button {
   background-color: transparent;
