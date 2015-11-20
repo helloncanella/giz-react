@@ -1,4 +1,4 @@
-import AABB from '../scripts/AABB';
+import AABB from '../scripts/canvas/AABB';
 import Converter from '../scripts/Converter';
 
 var EaseljsShape = createjs.Shape;

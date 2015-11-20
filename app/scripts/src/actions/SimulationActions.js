@@ -3,7 +3,7 @@ import _ from 'lodash';
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import Constants from '../constants/AppConstants';
 
-var DataProcessorActions = {
+var SimulationActions = {
   update: function(data) {
     let action = {
       type: Constants.UPDATE,
@@ -13,4 +13,4 @@ var DataProcessorActions = {
   }
 };
 
-export default DataProcessorActions;
+export default SimulationActions;

@@ -3,7 +3,7 @@ import EventEmmitter from 'events';
 
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import Constants from '../constants/AppConstants';
-import DataProcessorActions from '../actions/DataProcessorActions';
+import SimulationActions from '../actions/SimulationActions';
 
 var startedWorker;
 var startTime;

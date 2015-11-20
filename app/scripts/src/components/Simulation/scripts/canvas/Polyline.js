@@ -1,4 +1,4 @@
-import Shape from '../scripts/Shape';
+import Shape from '../scripts/canvas/Shape';
 
 function Polyline(position, canvas, shapeFactory) {
   Shape.call(this, position, shapeFactory);

@@ -1,4 +1,4 @@
-import Shape from '../scripts/Shape';
+import Shape from '../scripts/canvas/Shape';
 
 //-----------------------------------------------------------
 //- Circle's abstraction. It inherits from Shape

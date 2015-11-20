@@ -1,7 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 import Window from '../Window/Window';
-import Artist from './scripts/Artist';
+import Artist from './scripts/canvas/Artist';
 import Converter from './scripts/Converter';
 import 'jquery-ui/resizable';
 import 'jquery-ui/draggable';

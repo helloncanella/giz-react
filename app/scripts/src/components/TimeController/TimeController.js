@@ -2,7 +2,7 @@ import React  from 'react';
 import Button from '../Button/Button';
 import Slider from '../Slider/Slider';
 import TimeControllerActions from '../../actions/TimeControllerActions';
-import DataProcessorActions from '../../actions/DataProcessorActions';
+import SimulationActions from '../../actions/SimulationActions';
 
 class TimeController extends React.Component {
 

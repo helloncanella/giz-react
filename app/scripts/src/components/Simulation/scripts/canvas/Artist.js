@@ -1,5 +1,5 @@
-import Stage from '../scripts/Stage';
-import ShapeFactory from '../scripts/ShapeFactory';
+import Stage from '../scripts/canvas/Stage';
+import ShapeFactory from '../scripts/canvas/ShapeFactory';
 
 function Artist(canvasId) {
 
