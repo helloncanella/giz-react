@@ -6,7 +6,7 @@ import Converter from './scripts/Converter';
 import 'jquery-ui/resizable';
 import 'jquery-ui/draggable';
 
-var width, ratio;
+var width, ratio, rescaling;
 
 class Simulation extends React.Component {
 
@@ -34,11 +34,16 @@ class Simulation extends React.Component {
         self.stage.update();
       },
       resizestart: function(){
-        width=$('#Simulation').width();
+        width = $('#Simulation').width();
+
+        rescaling = setInterval(function(){
+          ratio = $('#Simulation').width()/width;
+          self.stage.rescaleChildren(ratio);
+          width = $('#Simulation').width();
+        },10);
       },
       resizestop: function(){
-        ratio = $('#Simulation').width()/width;
-        self.stage.rescaleChildren(ratio);
+        clearInterval(rescaling);
         this.scale /= ratio;
       },
     });

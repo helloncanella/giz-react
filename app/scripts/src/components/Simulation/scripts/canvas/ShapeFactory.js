@@ -1,6 +1,6 @@
 import $ from 'jquery';
-import Circle from '../scripts/canvas/Circle';
-import Polyline from '../scripts/canvas/Polyline';
+import Circle from '../canvas/Circle';
+import Polyline from '../canvas/Polyline';
 
 function ShapeFactory(canvasId, stage) {
 
