@@ -47,6 +47,12 @@ function bundle() {
   //Config de browserify if the src folder is empty, or if a file was added in the source folder
   var currentSourceFiles = glob.sync("app/scripts/src/**/*.js");
 
+  // All the webWokers will be removed from list of files to be bundled.
+  // It prevents the pollution of worker's namespace
+  var removedWorkers = _.remove(currentSourceFiles, function(file){
+    return new RegExp('worker','i').test(file);
+  });
+
   if (_.isEmpty(currentSourceFiles) || !_.isEqual(sourceFiles.sort(), currentSourceFiles.sort())) {
     sourceFiles = currentSourceFiles;
     configBrowserify();
