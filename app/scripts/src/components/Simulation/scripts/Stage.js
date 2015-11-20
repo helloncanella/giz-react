@@ -18,9 +18,7 @@ Stage.prototype.rescaleChildren =  function(ratio){
 
   for (var index in children) {
     if (children.hasOwnProperty(index)) {
-      var child = children[index];
-      child.graphics.clear();
-      child.rescale(ratio);
+      children[index].rescale(ratio);
     }
   }
 

@@ -36,6 +36,7 @@ Circle.prototype.prepare = function() {
 };
 
 Circle.prototype.setCentroid = function(){
+  var self = this;
 
   var centroid = {
     x:this.x,
@@ -44,6 +45,14 @@ Circle.prototype.setCentroid = function(){
 
   Shape.prototype.setCentroid.call(this, centroid);
 
+  //- setting the center of mass graphically
+  this.graphics
+    .beginStroke('red')
+    .beginFill('red')
+    .drawCircle(0, 0, this.data.measures.radius);
+
+
+  this.stage.update();
 
   return this;
 };

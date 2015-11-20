@@ -28,9 +28,9 @@ Shape.prototype.prepare = function() {};
 Shape.prototype.rescale = function(ratio) {
   let converter = new Converter(ratio);
 
-  let rescaledObject = converter.convert(JSON.parse(JSON.stringify(this.data)), 'rescale');
-
-  this.data = JSON.parse(JSON.stringify(rescaledObject));
+  this.x = converter.convert(this.x, 'rescale');
+  this.y = converter.convert(this.y, 'rescale');
+  this.data = converter.convert(JSON.parse(JSON.stringify(this.data)), 'rescale');
 
   this.setAABB().setCentroid();
 };
@@ -57,6 +57,8 @@ Shape.prototype.setCentroid = function(centroid) {
     x: centroid.x,
     y: centroid.y
   };
+
+  this.graphics.clear();
 
   return this;
 

@@ -61,9 +61,11 @@ Polyline.prototype.setCentroid = function() {
 
   stage.update();
 
+
   function setNewPosition() {
     shape.x = centroid.x;
     shape.y = centroid.y;
+
 
     rebuildShape();
 
@@ -76,8 +78,6 @@ Polyline.prototype.setCentroid = function() {
           x: points[0].x - shape.x,
           y: points[0].y - shape.y
         };
-
-      graphics.clear();
 
       if (isOpened) {
         graphics.beginStroke('royalBlue');
