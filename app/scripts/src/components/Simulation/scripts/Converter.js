@@ -21,7 +21,7 @@ Converter.prototype.convert = function(entity, destiny, exception) {
 
     if (destiny === 'box2d') {
       entity /= scale;
-    } else if (destiny === 'canvas') {
+    } else if (destiny === 'canvas' || destiny === 'rescale') {
       entity *= scale;
     } else{
       throw 'Problem on the assignment of the variable \'destiny\'';

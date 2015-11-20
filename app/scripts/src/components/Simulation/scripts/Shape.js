@@ -1,4 +1,5 @@
 import AABB from '../scripts/AABB';
+import Converter from '../scripts/Converter';
 
 var EaseljsShape = createjs.Shape;
 
@@ -23,6 +24,16 @@ Shape.prototype = Object.create(EaseljsShape.prototype);
 Shape.prototype.constructor = Shape;
 
 Shape.prototype.prepare = function() {};
+
+Shape.prototype.rescale = function(ratio) {
+  let converter = new Converter(ratio);
+
+  let rescaledObject = converter.convert(JSON.parse(JSON.stringify(this.data)), 'rescale');
+
+  this.data = JSON.parse(JSON.stringify(rescaledObject));
+
+  this.setAABB().setCentroid();
+};
 
 Shape.prototype.setAABB = function() {
 

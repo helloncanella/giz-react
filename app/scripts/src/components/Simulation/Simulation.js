@@ -6,9 +6,7 @@ import Converter from './scripts/Converter';
 import 'jquery-ui/resizable';
 import 'jquery-ui/draggable';
 
-var listOfDraw;
-var selectedBody;
-
+var width, ratio;
 
 class Simulation extends React.Component {
 
@@ -30,8 +28,12 @@ class Simulation extends React.Component {
         self.setupCanvas();
         self.stage.update();
       },
+      resizestart: function(){
+        width=$('#Simulation').width();
+      },
       resizestop: function(){
-
+        ratio = $('#Simulation').width()/width;
+        self.stage.rescaleChildren(ratio);
       },
     });
   }

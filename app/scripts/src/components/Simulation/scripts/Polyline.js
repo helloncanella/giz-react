@@ -394,4 +394,4 @@ Segment.prototype.setEnd = function(x, y) {
     .lineTo(end.x, end.y);
 };
 
-export default Polyline; 
+export default Polyline;
