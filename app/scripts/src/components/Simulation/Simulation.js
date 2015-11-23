@@ -3,19 +3,23 @@ import $ from 'jquery';
 import Window from '../Window/Window';
 import Artist from './scripts/canvas/Artist';
 import Converter from './scripts/Converter';
+import work from 'webworkify';
+import mico from './scripts/worker';
 
 import SimulationActions from '../../actions/SimulationActions';
 
 import 'jquery-ui/resizable';
 import 'jquery-ui/draggable';
 
-var width, ratio, rescaling;
+var width,
+  ratio,
+  rescaling;
 
 var listOfDraw;
 
 class Simulation extends React.Component {
 
-  componentDidMount () {
+  componentDidMount() {
     this.canvasId = 'easeljs';
     this.scale = 100;
     this.converter = new Converter(this.scale);
@@ -26,16 +30,12 @@ class Simulation extends React.Component {
     this.artist = new Artist(this.canvasId);
     this.stage = this.artist.stage;
 
-    //physic's characters
-    var workerFile = 'scripts/src/components/Simulation/scripts/physics/physicsWorker.js';
-    this.worker = new Worker(workerFile);
+    var w = work(mico);
+    w.addEventListener('message', function(e) {
+      console.log(e.data);
+    });
 
-    this.worker.onmessage = function(e){
-      var bodies = e.data;
-      console.log(bodies);
-      SimulationActions.update(bodies);
-    };
-
+    w.postMessage(4); // send the worker a message
 
     this.readyToDraw();
 
@@ -45,25 +45,23 @@ class Simulation extends React.Component {
         self.setupCanvas();
         self.stage.update();
       },
-      resizestart: function(){
+      resizestart: function() {
         width = $('#Simulation').width();
 
-        rescaling = setInterval(function(){
-          ratio = $('#Simulation').width()/width;
+        rescaling = setInterval(function() {
+          ratio = $('#Simulation').width() / width;
           self.stage.rescaleChildren(ratio);
           width = $('#Simulation').width();
-        },10);
+        }, 10);
       },
-      resizestop: function(){
+      resizestop: function() {
         clearInterval(rescaling);
         this.scale /= ratio;
-      },
+      }
     });
   }
 
-  setupCanvas () {
-    this.canvas.attr({width: $('#Simulation').css('width'), height: $('#Simulation').css('height')});
-  }
+  setupCanvas () {this.canvas.attr({width: $('#Simulation').css('width'), height: $('#Simulation').css('height')});}
 
   readyToDraw () {
     let self = this;
@@ -72,14 +70,14 @@ class Simulation extends React.Component {
       let clonedShape = JSON.parse(JSON.stringify(shape));
       let convertedShape = self.converter.convert(clonedShape, 'box2d');
 
-      this.worker.postMessage(['insertBody', convertedShape, 'dynamic']);
+      this.worker.postMessage(['insertBody', convertedShape, 'dynamic',]);
 
       self.readyToDraw();
     });
   }
 
   render () {
-    return (
+    return(
       <Window id={'Simulation'} label={'SIMULATION'}>
         <canvas id='easeljs'></canvas>
       </Window>
