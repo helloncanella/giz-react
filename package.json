@@ -13,6 +13,7 @@
     "babel-preset-es2015": "^6.0.15",
     "babel-preset-react": "^6.0.15",
     "babelify": "^7.2.0",
+    "box2dweb": "latest",
     "browser-sync": "^2.9.11",
     "browserify": "^12.0.1",
     "flux": "^2.1.1",
@@ -29,11 +30,11 @@
     "jquery-ui": "latest",
     "keymirror": "^0.1.1",
     "lodash": "latest",
+    "poly2tri": "^1.3.5",
     "react": "latest",
     "react-dom": "^0.14.2",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
-    "watchify": "^3.6.0",
-    "box2dweb": "latest"
+    "watchify": "^3.6.0"
   }
 }

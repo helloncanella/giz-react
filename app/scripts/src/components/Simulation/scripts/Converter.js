@@ -32,4 +32,10 @@ Converter.prototype.convert = function(entity, destiny, exception) {
   return entity;
 };
 
+Converter.prototype.modifyScale = function(scale){
+  this.scale = scale;
+
+  return this;
+};
+
 export default Converter;

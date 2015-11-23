@@ -3,16 +3,22 @@ import $ from 'jquery';
 import Window from '../Window/Window';
 import Artist from './scripts/canvas/Artist';
 import Converter from './scripts/Converter';
+
+import SimulationActions from '../../actions/SimulationActions';
+
 import 'jquery-ui/resizable';
 import 'jquery-ui/draggable';
 
 var width, ratio, rescaling;
+
+var listOfDraw;
 
 class Simulation extends React.Component {
 
   componentDidMount () {
     this.canvasId = 'easeljs';
     this.scale = 100;
+    this.converter = new Converter(this.scale);
 
     //canvas's characters
     this.canvas = $('#' + this.canvasId);
@@ -21,9 +27,15 @@ class Simulation extends React.Component {
     this.stage = this.artist.stage;
 
     //physic's characters
+    var workerFile = 'scripts/src/components/Simulation/scripts/physics/physicsWorker.js';
+    this.worker = new Worker(workerFile);
 
+    this.worker.onmessage = function(e){
+      var bodies = e.data;
+      console.log(bodies);
+      SimulationActions.update(bodies);
+    };
 
-    this.converter = new Converter(this.scale);
 
     this.readyToDraw();
 
@@ -59,6 +71,8 @@ class Simulation extends React.Component {
 
       let clonedShape = JSON.parse(JSON.stringify(shape));
       let convertedShape = self.converter.convert(clonedShape, 'box2d');
+
+      this.worker.postMessage(['insertBody', convertedShape, 'dynamic']);
 
       self.readyToDraw();
     });
