@@ -1,6 +1,4 @@
-/*global FixtureFactory*/
-/*jshint -W106, -W098*/
-
+import FixtureFactory from './FixtureFactory';
 
 function Box2dCircle (fixtureData,radius) {
 
@@ -10,7 +8,7 @@ function Box2dCircle (fixtureData,radius) {
   var friction = fixtureData.friction || 0;
 
   var fixture = fixtureFactory.spawn('circle',density,friction);
-  fixture.shape.m_radius = radius; 
+  fixture.shape.m_radius = radius;
 
   this.getAllFixtures = function(){
     //The return value needs to be an array

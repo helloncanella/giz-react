@@ -59,8 +59,6 @@ module.exports = function (self) {
         default:
       }
 
-
-
     };
 
     var bodies, collector;

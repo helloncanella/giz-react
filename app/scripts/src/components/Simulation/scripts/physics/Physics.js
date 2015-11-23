@@ -8,7 +8,6 @@ function Physics(world) {
   var insertedBodies = 0;
 
   this.insertIntoWorld = function(stroke, type) {
-    insertedBodies++;
 
     var id = insertedBodies;
 
@@ -23,6 +22,8 @@ function Physics(world) {
 
     var position = body.GetWorldCenter();
     var centroid = stroke.centroid;
+
+    insertedBodies++;
   };
 
   this.getListOfBodies = function() {
@@ -63,8 +64,8 @@ function Physics(world) {
       };
 
       var id = body.GetUserData();
-      bodyDataArray[id] = bodyData;
 
+      bodyDataArray[id] = bodyData;
     });
 
 

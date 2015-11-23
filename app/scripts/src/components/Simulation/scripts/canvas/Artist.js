@@ -1,5 +1,5 @@
-import Stage from '../canvas/Stage';
-import ShapeFactory from '../canvas/ShapeFactory';
+import Stage from './Stage';
+import ShapeFactory from './ShapeFactory';
 
 function Artist(canvasId) {
 
@@ -33,7 +33,7 @@ function Artist(canvasId) {
     var children = stage.children;
 
     for (var i = 0; i < children.length; i++) {
-      var body = bodyList[i+4];
+      var body = bodyList[i];
 
       if (body) {
         children[i].x = body.x;

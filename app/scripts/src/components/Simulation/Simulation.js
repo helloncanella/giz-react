@@ -20,6 +20,8 @@ var listOfDraw;
 class Simulation extends React.Component {
 
   componentDidMount() {
+    let self = this;
+
     this.canvasId = 'easeljs';
     this.scale = 100;
     this.converter = new Converter(this.scale);
@@ -31,12 +33,17 @@ class Simulation extends React.Component {
     this.stage = this.artist.stage;
 
     this.worker = work(Worker);
+
     this.worker.addEventListener('message', function(e) {
+      let listOfBodies = JSON.parse(JSON.stringify(e.data));
+
+      let listOfDraw = self.converter.convert(listOfBodies, 'canvas', 'angle');
+
+      self.artist.update(listOfDraw);
     });
 
     this.readyToDraw();
 
-    let self = this;
     $('#Simulation').on({
       resize: function() {
         self.setupCanvas();
