@@ -1,6 +1,6 @@
 {
   "undef": true,
   "unused": false,
-  "predef": [ "console", "importScripts", "createjs", "setTimeout", "clearTimeout", "require", "document", "Worker", "onmessage", "postMessage", "setInterval", "clearInterval" ],
+  "predef": [ "console", "module", "importScripts", "createjs", "setTimeout", "clearTimeout", "require", "document", "Worker", "onmessage", "postMessage", "setInterval", "clearInterval" ],
   "esnext": true
 }

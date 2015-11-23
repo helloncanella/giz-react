@@ -4,7 +4,7 @@ import Window from '../Window/Window';
 import Artist from './scripts/canvas/Artist';
 import Converter from './scripts/Converter';
 import work from 'webworkify';
-import mico from './scripts/worker';
+import Worker from './scripts/physics/Worker';
 
 import SimulationActions from '../../actions/SimulationActions';
 
@@ -30,12 +30,9 @@ class Simulation extends React.Component {
     this.artist = new Artist(this.canvasId);
     this.stage = this.artist.stage;
 
-    var w = work(mico);
-    w.addEventListener('message', function(e) {
-      console.log(e.data);
+    this.worker = work(Worker);
+    this.worker.addEventListener('message', function(e) {
     });
-
-    w.postMessage(4); // send the worker a message
 
     this.readyToDraw();
 
@@ -70,7 +67,7 @@ class Simulation extends React.Component {
       let clonedShape = JSON.parse(JSON.stringify(shape));
       let convertedShape = self.converter.convert(clonedShape, 'box2d');
 
-      this.worker.postMessage(['insertBody', convertedShape, 'dynamic',]);
+      self.worker.postMessage(['insertBody', convertedShape, 'dynamic',]);
 
       self.readyToDraw();
     });
