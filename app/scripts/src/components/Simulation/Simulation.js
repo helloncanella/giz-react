@@ -3,8 +3,8 @@ import $ from 'jquery';
 import Window from '../Window/Window';
 import Artist from './scripts/canvas/Artist';
 import Converter from './scripts/Converter';
-import work from 'webworkify';
-import Worker from './scripts/physics/Worker';
+
+
 
 import SimulationActions from '../../actions/SimulationActions';
 
@@ -32,15 +32,9 @@ class Simulation extends React.Component {
     this.artist = new Artist(this.canvasId);
     this.stage = this.artist.stage;
 
-    this.worker = work(Worker);
 
-    this.worker.addEventListener('message', function(e) {
-      let listOfBodies = JSON.parse(JSON.stringify(e.data));
 
-      let listOfDraw = self.converter.convert(listOfBodies, 'canvas', 'angle');
 
-      self.artist.update(listOfDraw);
-    });
 
     this.readyToDraw();
 
@@ -65,6 +59,10 @@ class Simulation extends React.Component {
     });
   }
 
+  componentWillUpdate(nextprops){
+
+  }
+
   setupCanvas () {this.canvas.attr({width: $('#Simulation').css('width'), height: $('#Simulation').css('height')});}
 
   readyToDraw () {
@@ -74,7 +72,7 @@ class Simulation extends React.Component {
       let clonedShape = JSON.parse(JSON.stringify(shape));
       let convertedShape = self.converter.convert(clonedShape, 'box2d');
 
-      self.worker.postMessage(['insertBody', convertedShape, 'dynamic',]);
+      SimulationActions.insertBody(convertedShape);
 
       self.readyToDraw();
     });

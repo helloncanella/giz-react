@@ -11,6 +11,7 @@ import Warning from './components/Warning/Warning';
 
 import TimeControllerStore from './stores/TimeControllerStore';
 import TimeRangeSetterStore from './stores/TimeRangeSetterStore';
+import SimulationStore from './stores/SimulationStore';
 import WarningStore from './stores/WarningStore';
 
 
@@ -62,7 +63,7 @@ class AppView extends React.Component {
     return (
       <div className='App'>
         <Simulation/>
-      </div> 
+      </div>
     );
   }
 

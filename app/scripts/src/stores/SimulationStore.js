@@ -4,8 +4,10 @@ import EventEmmitter from 'events';
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import Constants from '../constants/AppConstants';
 import SimulationActions from '../actions/SimulationActions';
-
 import WarningStore from '../stores/WarningStore';
+
+import work from 'webworkify';
+import Worker from '../components/Simulation/scripts/physics/Worker';
 
 var startTime;
 var number = 0;
@@ -15,6 +17,14 @@ var pastTime = [0];
 var duration;
 var step = 300;
 var next, index;
+
+
+var worker = work(Worker);
+worker.addEventListener('message', function(e) {
+  let listOfBodies = JSON.parse(JSON.stringify(e.data));
+  SimulationActions.update(listOfBodies);
+});
+
 
 function wakeWorkerAtIndex(desiredPosition) {
   dataGeneration = setInterval(function () {
@@ -57,6 +67,10 @@ var SimulationStore = _.assign({}, EventEmmitter.prototype, {
     AppDispatcher.waitFor([WarningStore.dispatchToken]);
     if (!WarningStore.getMessage()) {
       switch (action.type) {
+        case Constants.NEW_BODY:
+          let body = action.data.body;
+          worker.postMessage(['insertBody', body, 'dynamic',]);
+          break;
         case Constants.PLAY:
           if(!index){
             index = 0;
