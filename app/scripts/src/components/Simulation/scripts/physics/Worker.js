@@ -8,14 +8,16 @@ module.exports = function(self) {
     indexLastBody,
     position,
     mousePosition,
-    bodies,
+    bodyList,
     engine,
     selectedBody;
 
   var gravity = new B2Preamble.b2Vec2(0, 9.8),
     world = new B2Preamble.b2World(gravity, false),
     physics = new Physics(world),
-    rate = 1 / 60;
+    rate = 1 / 60,
+    interval = 1000 * rate,
+    time = 0;
 
   self.onmessage = function(e) {
 
@@ -59,11 +61,22 @@ module.exports = function(self) {
       case 'play':
         engine = setInterval(function() {
           world.Step(rate, 10, 10);
-          bodies = physics.getCustomListOfBodies();
+          bodyList = physics.getCustomListOfBodies();
 
-          if (!_.isEmpty(bodies)) {self.postMessage(bodies);}
+          if (!_.isEmpty(bodyList)) {
+            time += interval;
 
-        }, 1000 * rate);
+            let result = {
+              time: time,
+              bodyList: bodyList
+            };
+
+
+
+            self.postMessage(result);
+          }
+
+        }, interval);
         break;
 
       case 'stop':

@@ -4,13 +4,12 @@ import AppDispatcher from '../dispatcher/AppDispatcher';
 import Constants from '../constants/AppConstants';
 
 var SimulationActions = {
-  update: function(listOfBodies) {
-    let data = {};
-    data.listOfBodies = listOfBodies;
+
+  update: function(sentData) {
 
     let action = {
       type: Constants.UPDATE,
-      data: _.assign({}, data)
+      data: _.assign({}, sentData)
     };
     AppDispatcher.handleAction(action);
   },

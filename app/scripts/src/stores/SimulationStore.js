@@ -12,41 +12,37 @@ import Worker from '../components/Simulation/scripts/physics/Worker';
 var startTime;
 var number = 0;
 var dataGeneration;
-var _timeIntervalObject ={};
+var _duration = {};
 var pastTime = [0];
 var duration;
 var step = 300;
-var next, index;
-
+var next,
+  index;
+var bodyList = {};
+var timeline = new Map();
 
 var worker = work(Worker);
 worker.addEventListener('message', function(e) {
-  let listOfBodies = JSON.parse(JSON.stringify(e.data));
-  SimulationActions.update(listOfBodies);
+  SimulationActions.update(JSON.parse(JSON.stringify(e.data)));
 });
 
-
 function wakeWorkerAtIndex(desiredPosition) {
-  dataGeneration = setInterval(function () {
+  dataGeneration = setInterval(function() {
     let nextTime;
 
-    if(pastTime[desiredPosition+1]){
-      nextTime = pastTime[desiredPosition+1];
-    }else{
-      nextTime = pastTime[desiredPosition]+step;
-      pastTime.push(nextTime) ;
+    if (pastTime[desiredPosition + 1]) {
+      nextTime = pastTime[desiredPosition + 1];
+    } else {
+      nextTime = pastTime[desiredPosition] + step;
+      pastTime.push(nextTime);
     }
 
     desiredPosition++;
     index = desiredPosition;
 
-    let ratio = nextTime/duration;
+    let ratio = nextTime / duration;
 
-    if(ratio<=0.95){
-      SimulationActions.update({time: nextTime});
-    }else{
-      stopWorker();
-    }
+    if (ratio <= 0.95) {SimulationActions.update({time: nextTime});} else {stopWorker();}
   }, step);
 
 }
@@ -56,36 +52,63 @@ function stopWorker() {
   pauseWorker();
 }
 
-function pauseWorker(){
+function pauseWorker() {
   clearInterval(dataGeneration);
 }
 
+function stop() {
+  worker.postMessage(["stop"]);
+}
+
+function play() {
+  worker.postMessage(["play"]);
+}
+
 var SimulationStore = _.assign({}, EventEmmitter.prototype, {
+
+  emitChange: function(argument) {
+    this.emit('change');
+  },
+
+  addChangeListener: function(callback) {
+    this.on('change', callback);
+  },
+
+  getBodyList: function() {
+    return bodyList;
+  },
 
   dispatchToken: AppDispatcher.register(function(action) {
 
     AppDispatcher.waitFor([WarningStore.dispatchToken]);
     if (!WarningStore.getMessage()) {
       switch (action.type) {
-        case Constants.NEW_BODY:
+          case Constants.NEW_BODY:
           let body = action.data.body;
           worker.postMessage(['insertBody', body, 'dynamic',]);
           break;
         case Constants.PLAY:
-          if(!index){
-            index = 0;
-          }
-          wakeWorkerAtIndex(index);
+          // if(!index){
+          //   index = 0;
+          // }
+          // wakeWorkerAtIndex(index);
+          play();
+          break;
+        case Constants.UPDATE:
+
+          let data = action.data,
+            time = data.time;
+
+          bodyList = data.bodyList;
+          timeline.set(time, bodyList);
+
           break;
         case Constants.PAUSE:
-          pauseWorker();
-          break;
         case Constants.STOP:
-          stopWorker();
+          stop();
           break;
         case Constants.SET_TIME_INTERVAL:
-          _timeIntervalObject= action.data.interval;
-          duration = (_timeIntervalObject.end-_timeIntervalObject.start + 1)*1000;
+          _duration = (action.duration+1)*1000;          
           break;
         default:
       }

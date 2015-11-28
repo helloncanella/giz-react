@@ -24,7 +24,6 @@ var TimeControllerStore = _.assign({}, EventEmmitter.prototype, {
   },
 
   getTimePosition: function() {
-    console.log(_ratio);
     return _ratio;
   },
 
@@ -61,8 +60,7 @@ var TimeControllerStore = _.assign({}, EventEmmitter.prototype, {
           break;
 
         case Constants.SET_TIME_INTERVAL:
-          _timeInterval = action.data.interval;
-          _duration = (_timeInterval.end -_timeInterval.start)*1000;
+          _duration = action.duration*1000;
           break;
 
         case Constants.UPDATE:

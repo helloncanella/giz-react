@@ -26,6 +26,9 @@ function getAppStates() {
     },
     TimeRangeSetter: {
       isVisible: TimeRangeSetterStore.isVisible()
+    },
+    Simulation:{
+      listOfBodies: SimulationStore.getBodyList()
     }
   });
 }
@@ -45,24 +48,29 @@ class AppView extends React.Component {
     TimeControllerStore.addChangeListener(this._onChange);
     WarningStore.addChangeListener(this._onChange);
     TimeRangeSetterStore.addChangeListener(this._onChange);
+    SimulationStore.addChangeListener(this._onChange);
   }
 
   componentWillUnmount () {
     TimeControllerStore.removeChangeListener(this._onChange);
     WarningStore.removeChangeListener(this._onChange);
-    TimeRangeSetter.removeChangeListener(this._onChange);
+    TimeRangeSetterStore.removeChangeListener(this._onChange);
+    SimulationStore.removeChangeListener(this._onChange);
   }
 
   render () {
     var TimeControllerStates= this.state.TimeController;
     var WarningStates= this.state.Warning;
     var TimeRangeSetterStates = this.state.TimeRangeSetter;
+    var SimulationStoreStates = this.state.Simulation;
 
-    console.log(TimeRangeSetterStates.isVisible);
 
     return (
       <div className='App'>
-        <Simulation/>
+        <Warning message={WarningStates.message}/>
+        <Simulation listOfBodies={SimulationStoreStates.listOfBodies}/>
+        <TimeController id={'TimeController'} runningState={TimeControllerStates.runningState} timePosition={0} />
+        <TimeRangeSetter id={'TimeRangeSetter'} isVisible={TimeRangeSetterStates.isVisible}/>
       </div>
     );
   }

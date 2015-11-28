@@ -43,9 +43,7 @@ var TimeControllerStore = _.assign({}, EventEmmitter.prototype, {
             break;
 
         case Constants.SET_TIME_INTERVAL:
-          let timeInterval = action.data.interval;
-          let duration = (timeInterval.end -timeInterval.start)*1000;
-
+          let duration = action.duration*1000;
           if(duration>0){
             _isVisible = false;
           }

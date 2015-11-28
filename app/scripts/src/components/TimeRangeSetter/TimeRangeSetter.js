@@ -24,26 +24,18 @@ class TimeRangeSetter extends React.Component {
 
 
   onClick() {
-    let interval = {
-      start: +$('input#start-time').val(),
-      end: +$('input#end-time').val()
-    };
-
-    TimeRangeSetterActions.buttonPressed(interval);
+    let duration = +$('input#duration').val();
+    TimeRangeSetterActions.buttonPressed(duration);
   }
 
   render () {
     return (
       <div className='TimeRangeSetter' id={this.props.id}>
-        <h5>Set the time interval</h5>
+        <h5>Set the duration</h5>
         <form className='form-inline'>
           <div className='form-group'>
-            <label htmlFor='start-time'>start time</label>
-            <input className='form-control' id='start-time'></input>
-          </div>
-          <div className='form-group'>
-            <label htmlFor='end-time'>end time</label>
-            <input className='form-control' id='end-time'></input>
+            <label htmlFor='duration'>duration</label>
+            <input className='form-control' id='duration'></input>
           </div>
         </form>
         <button onClick={this.onClick}>OK</button>

@@ -32,10 +32,6 @@ class Simulation extends React.Component {
     this.artist = new Artist(this.canvasId);
     this.stage = this.artist.stage;
 
-
-
-
-
     this.readyToDraw();
 
     $('#Simulation').on({
@@ -60,6 +56,12 @@ class Simulation extends React.Component {
   }
 
   componentWillUpdate(nextprops){
+    let listOfBodies = JSON.parse(JSON.stringify(nextprops.listOfBodies));
+    let listOfDraw = this.converter.convert(listOfBodies, 'canvas');
+
+    if(listOfDraw){
+      this.artist.update(listOfDraw);
+    }
 
   }
 

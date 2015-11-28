@@ -4,12 +4,10 @@ import _ from 'lodash';
 
 
 var TimeRangeSetterActions = {
-  buttonPressed: function(intervalData) {
+  buttonPressed: function(duration) {
     AppDispatcher.handleAction({
       type: Constants.SET_TIME_INTERVAL,
-      data:{
-        interval: _.assign({},intervalData)
-      }
+      duration: duration
     });
   }
 };
