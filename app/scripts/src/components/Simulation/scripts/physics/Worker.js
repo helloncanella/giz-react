@@ -80,6 +80,9 @@ module.exports = function(self) {
         break;
 
       case 'stop':
+        clearInterval(engine);
+        self.postMessage({time:0});
+        break;
       case 'pause':
         clearInterval(engine);
         break;

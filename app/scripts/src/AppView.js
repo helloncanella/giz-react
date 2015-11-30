@@ -69,7 +69,7 @@ class AppView extends React.Component {
       <div className='App'>
         <Warning message={WarningStates.message}/>
         <Simulation listOfBodies={SimulationStoreStates.listOfBodies}/>
-        <TimeController id={'TimeController'} runningState={TimeControllerStates.runningState} timePosition={0} />
+        <TimeController id={'TimeController'} runningState={TimeControllerStates.runningState} timePosition={TimeControllerStates.timePosition} />
         <TimeRangeSetter id={'TimeRangeSetter'} isVisible={TimeRangeSetterStates.isVisible}/>
       </div>
     );

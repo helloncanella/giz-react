@@ -19,7 +19,14 @@ var TimeControllerActions = {
       type: Constants.STOP,
       data:{}
     });
-  }
+  },
+  changeTime: function(handlerState,percentual) {
+    AppDispatcher.handleAction({
+      type: Constants.SLIDED_MOVED,
+      percentual:percentual,
+      state:handlerState
+    });
+  },
 };
 
 export default TimeControllerActions;

@@ -65,7 +65,6 @@ var TimeControllerStore = _.assign({}, EventEmmitter.prototype, {
 
         case Constants.UPDATE:
           _time = action.data.time;
-
           _ratio = _time/_duration;
 
           if(_ratio>1){

@@ -9,4 +9,5 @@ export default keyMirror({
   PAUSE: null,
   PLAY: null,
   UPDATE: null,
+  SLIDED_MOVED: null,
 });
