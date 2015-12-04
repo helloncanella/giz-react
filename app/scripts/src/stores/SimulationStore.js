@@ -144,14 +144,12 @@ var SimulationStore = _.assign({}, EventEmmitter.prototype, {
                   }
 
                   if(data){
-                    debugger;
                     update(data);
                     data = {
                       time: key,
                       bodyList: value
                     };
                   }
-
 
                 });
               }
