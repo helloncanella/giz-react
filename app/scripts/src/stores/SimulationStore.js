@@ -97,7 +97,8 @@ var SimulationStore = _.assign({}, EventEmmitter.prototype, {
       switch (action.type) {
           case Constants.NEWBODY:
           let body = action.data.body;
-          worker.postMessage(['insertBody', body, 'dynamic',]);
+          let type = action.data.type;
+          worker.postMessage(['insertBody', body, type]);
           break;
         case Constants.PLAY:
           run();

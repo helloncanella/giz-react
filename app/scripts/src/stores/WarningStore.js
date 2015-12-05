@@ -30,7 +30,7 @@ var WarningStore = _.assign({}, EventEmmitter.prototype, {
 
       case Constants.PLAY:
         if(!_duration){
-          _message = 'You didn\'t set a time interval. Please, correct it.';
+          // _message = 'You didn\'t set a time interval. Please, correct it.';
         }
         break;
       case Constants.SET_TIME_INTERVAL:

@@ -3,8 +3,7 @@ import $ from 'jquery';
 import Window from '../Window/Window';
 import Artist from './scripts/canvas/Artist';
 import Converter from './scripts/Converter';
-
-
+import Limit from './scripts/canvas/Limit';
 
 import SimulationActions from '../../actions/SimulationActions';
 
@@ -13,13 +12,45 @@ import 'jquery-ui/draggable';
 
 var width,
   ratio,
-  rescaling;
+  rescaling,
+  listOfBodies,
+  listOfDraw;
 
 var listOfDraw;
 
 class Simulation extends React.Component {
 
-  componentDidMount() {
+  setBorders() {
+    var canvasWidth = this.canvas.width();
+    var canvasHeight = this.canvas.height();
+
+    var bottom = new Limit({
+      x: 10,
+      y: canvasHeight - 10
+    }, canvasWidth - 10, 10);
+    var left = new Limit({
+      x: 0, y: 0
+    }, 10, canvasHeight);
+    var right = new Limit({
+      x: (canvasWidth - 10),
+      y: 0
+    }, 10, canvasHeight);
+
+    var limits = [bottom, left, right,];
+
+    var self = this;
+
+    limits.forEach(function(limit) {
+      self.stage.addChild(limit);
+      self.stage.update();
+
+      var convertedShape = self.converter.convert(limit.data, 'box2d');
+
+      SimulationActions.insertBody(convertedShape, 'static');
+    });
+  }
+
+  componentDidMount () {
     let self = this;
 
     this.canvasId = 'easeljs';
@@ -32,10 +63,13 @@ class Simulation extends React.Component {
     this.artist = new Artist(this.canvasId);
     this.stage = this.artist.stage;
 
+    this.setBorders();
+
     this.readyToDraw();
 
     $('#Simulation').on({
       resize: function() {
+        SimulationActions.pause();
         self.setupCanvas();
         self.stage.update();
       },
@@ -51,18 +85,21 @@ class Simulation extends React.Component {
       resizestop: function() {
         clearInterval(rescaling);
         this.scale /= ratio;
+        SimulationActions.play();
       }
     });
+
+    //updating canvas.
+    (function update(){
+      if (listOfDraw) {self.artist.update(listOfDraw);}
+      requestAnimationFrame(update); //ESSENTIAL!
+    })();
+
   }
 
-  componentWillUpdate(nextprops){
-    let listOfBodies = JSON.parse(JSON.stringify(nextprops.listOfBodies));
-    let listOfDraw = this.converter.convert(listOfBodies, 'canvas');
-
-    if(listOfDraw){
-      this.artist.update(listOfDraw);
-    }
-
+  componentWillUpdate (nextprops) {
+    listOfBodies = JSON.parse(JSON.stringify(nextprops.listOfBodies));
+    listOfDraw = this.converter.convert(listOfBodies, 'canvas', 'angle');
   }
 
   setupCanvas () {this.canvas.attr({width: $('#Simulation').css('width'), height: $('#Simulation').css('height')});}
@@ -74,7 +111,7 @@ class Simulation extends React.Component {
       let clonedShape = JSON.parse(JSON.stringify(shape));
       let convertedShape = self.converter.convert(clonedShape, 'box2d');
 
-      SimulationActions.insertBody(convertedShape);
+      SimulationActions.insertBody(convertedShape, 'dynamic');
 
       self.readyToDraw();
     });

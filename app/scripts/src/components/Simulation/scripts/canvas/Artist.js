@@ -42,6 +42,7 @@ function Artist(canvasId) {
       }
 
       stage.update();
+
     }
   };
 }
