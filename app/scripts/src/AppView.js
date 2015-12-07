@@ -28,7 +28,8 @@ function getAppStates() {
       isVisible: TimeRangeSetterStore.isVisible()
     },
     Simulation:{
-      listOfBodies: SimulationStore.getBodyList()
+      listOfBodies: SimulationStore.getBodyList(),
+      paused: SimulationStore.getRunningState()
     }
   });
 }
@@ -68,7 +69,7 @@ class AppView extends React.Component {
     return (
       <div className='App'>
         <Warning message={WarningStates.message}/>
-        <Simulation listOfBodies={SimulationStoreStates.listOfBodies}/>
+        <Simulation listOfBodies={SimulationStoreStates.listOfBodies} paused={SimulationStoreStates.paused}/>
         <TimeController id={'TimeController'} runningState={TimeControllerStates.runningState} timePosition={TimeControllerStates.timePosition} />
         <TimeRangeSetter id={'TimeRangeSetter'} isVisible={TimeRangeSetterStates.isVisible}/>
       </div>

@@ -44,6 +44,8 @@ Polyline.prototype.setCentroid = function() {
     points = this.data.measures.points,
     shape = this;
 
+  console.log(this.data);  
+
   var centroid = calculateCentroid();
 
   Shape.prototype.setCentroid.call(this, centroid);

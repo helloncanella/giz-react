@@ -14,6 +14,7 @@ var width,
   ratio,
   rescaling,
   listOfBodies,
+  paused,
   listOfDraw;
 var listOfDraw;
 
@@ -77,7 +78,6 @@ class Simulation extends React.Component {
       resizestart: function() {
         width = $('#Simulation').width();
         rescaling = setInterval(function() {
-          console.log($('#Simulation').width(),width);
           ratio = $('#Simulation').width() / width;
           self.stage.rescaleChildren(ratio);
           self.scale = self.scale * ratio;
@@ -94,7 +94,7 @@ class Simulation extends React.Component {
 
     //updating canvas.
     (function update(){
-      if (listOfDraw) {self.artist.update(listOfDraw);}
+      if (listOfDraw && !paused) {self.artist.update(listOfDraw);}
       requestAnimationFrame(update); //ESSENTIAL!
     })();
 
@@ -103,6 +103,7 @@ class Simulation extends React.Component {
   componentWillUpdate (nextprops) {
     listOfBodies = JSON.parse(JSON.stringify(nextprops.listOfBodies));
     listOfDraw = this.converter.convert(listOfBodies, 'canvas', 'angle');
+    paused = nextprops.paused;
   }
 
   setupCanvas () {this.canvas.attr({width: $('#Simulation').css('width'), height: $('#Simulation').css('height')});}

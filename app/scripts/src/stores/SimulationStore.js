@@ -21,6 +21,8 @@ var next,
 var bodyList = {};
 var timeline = new Map();
 var last;
+var paused = true;
+
 
 var worker = work(Worker);
 
@@ -54,6 +56,7 @@ function pauseWorker() {
 }
 
 function stop() {
+  paused=true; //XXX TO BE FIXED - IF STOPPED THE RUNING STATE NEEDS TO BE "STOPPED"
   worker.postMessage(["stop"]);
 }
 
@@ -62,6 +65,7 @@ function wakeWorker() {
 }
 
 function run() {
+  paused = false;
   wakeWorker();
 }
 
@@ -90,6 +94,10 @@ var SimulationStore = _.assign({}, EventEmmitter.prototype, {
     return bodyList;
   },
 
+  getRunningState: function(){
+    return paused;
+  },
+
   dispatchToken: AppDispatcher.register(function(action) {
 
     AppDispatcher.waitFor([WarningStore.dispatchToken]);
@@ -101,6 +109,7 @@ var SimulationStore = _.assign({}, EventEmmitter.prototype, {
           worker.postMessage(['insertBody', body, type]);
           break;
         case Constants.PLAY:
+          paused = false;
           run();
           break;
         case Constants.UPDATE:
@@ -145,7 +154,6 @@ var SimulationStore = _.assign({}, EventEmmitter.prototype, {
                   }
 
                   if(data){
-                    debugger;
                     update(data);
                     data = {
                       time: key,

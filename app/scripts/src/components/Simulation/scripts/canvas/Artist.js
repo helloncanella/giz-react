@@ -49,6 +49,11 @@ function Artist(canvasId) {
         children[i].rotation = body.angle;
       }
 
+      if(i==3){
+        console.table(children[i].data.centroid);
+      }
+
+
       stage.update();
 
     }

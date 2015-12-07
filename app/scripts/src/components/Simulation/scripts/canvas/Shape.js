@@ -30,9 +30,14 @@ Shape.prototype.rescale = function(ratio) {
   this.x = converter.convert(this.x, 'rescale');
   this.y = converter.convert(this.y, 'rescale');
 
+
   this.data = converter.convert(JSON.parse(JSON.stringify(this.data)), 'rescale');
 
+  console.table(this.data);
+
   this.setAABB().setCentroid();
+
+  this.stage.update();
 };
 
 Shape.prototype.setAABB = function() {
