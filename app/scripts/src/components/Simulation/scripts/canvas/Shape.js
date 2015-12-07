@@ -27,9 +27,9 @@ Shape.prototype.prepare = function() {};
 
 Shape.prototype.rescale = function(ratio) {
   let converter = new Converter(ratio);
-
   this.x = converter.convert(this.x, 'rescale');
   this.y = converter.convert(this.y, 'rescale');
+
   this.data = converter.convert(JSON.parse(JSON.stringify(this.data)), 'rescale');
 
   this.setAABB().setCentroid();

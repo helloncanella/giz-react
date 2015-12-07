@@ -1,4 +1,5 @@
 import Shape from './Shape';
+import Polyline from './Polyline';
 
 function Limit(position, width, height) {
   Shape.call(this, position);
@@ -32,8 +33,15 @@ function Limit(position, width, height) {
   graphics.beginFill('green');
 
 }
+
+
 Limit.prototype = Object.create(Shape.prototype);
 
 Limit.prototype.constructor = Limit;
+
+Limit.prototype.setCentroid = function(){
+  Polyline.prototype.setCentroid.call(this);
+  return this;
+};
 
 export default Limit;

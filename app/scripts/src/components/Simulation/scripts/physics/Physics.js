@@ -33,6 +33,7 @@ function Physics(world) {
     listOfBodies.push(firstBody);
 
     var nextBody = firstBody.m_next;
+
     while (nextBody) {
       if (nextBody.m_mass !== 0) {
         listOfBodies.push(nextBody);
@@ -67,7 +68,6 @@ function Physics(world) {
 
       bodyDataArray[id] = bodyData;
     });
-
 
     return bodyDataArray;
   };

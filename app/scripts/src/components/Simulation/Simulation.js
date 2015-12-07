@@ -15,7 +15,6 @@ var width,
   rescaling,
   listOfBodies,
   listOfDraw;
-
 var listOfDraw;
 
 class Simulation extends React.Component {
@@ -40,8 +39,10 @@ class Simulation extends React.Component {
 
     var self = this;
 
+
     limits.forEach(function(limit) {
       self.stage.addChild(limit);
+      limit = self.artist.finalize(limit);
       self.stage.update();
 
       var convertedShape = self.converter.convert(limit.data, 'box2d');
@@ -75,17 +76,19 @@ class Simulation extends React.Component {
       },
       resizestart: function() {
         width = $('#Simulation').width();
-
         rescaling = setInterval(function() {
+          console.log($('#Simulation').width(),width);
           ratio = $('#Simulation').width() / width;
           self.stage.rescaleChildren(ratio);
+          self.scale = self.scale * ratio;
           width = $('#Simulation').width();
         }, 10);
       },
       resizestop: function() {
         clearInterval(rescaling);
-        this.scale /= ratio;
-        SimulationActions.play();
+        console.log(self.scale);
+        self.converter.modifyScale(self.scale);
+        // SimulationActions.play();
       }
     });
 

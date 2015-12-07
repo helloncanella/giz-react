@@ -15,7 +15,6 @@ Stage.prototype.setSelectedChild = function(child) {
 
 Stage.prototype.rescaleChildren =  function(ratio){
   let children = this.children;
-
   for (var index in children) {
     if (children.hasOwnProperty(index)) {
       children[index].rescale(ratio);

@@ -8,12 +8,24 @@ function ShapeFactory(canvasId, stage) {
 
   var canvas = $('#' + canvasId);
 
+  var borders = {
+    x: [
+      0, canvas.width(),
+    ],
+    y: [0, canvas.height(),]
+  };
+
   stage.enableMouseOver(10);
 
   this.isClosed = false;
 
+
+
   this.spawnShape = function() {
-    var circleProcess, incresingOfRadius;
+    var circleProcess,
+      incresingOfRadius;
+
+    let closeToBorder;
 
     var shapeFactory = this;
 
@@ -28,15 +40,38 @@ function ShapeFactory(canvasId, stage) {
       // - if it is short, create a Polyline.
       //-------------------------------------------------------------
 
-      var shape, firstPoint;
+      var shape,
+        firstPoint;
 
       canvas.on({
         mousedown: function(e) {
 
-          if (!shapeFactory.isClosed) {
+          closeToBorder = false;
+
+          let cursor = {
+            x: e.offsetX,
+            y: e.offsetY
+          };
+
+          //Auxiliary function
+          var verifyProximity = function(cursor) {
+            return function(border) {
+              if (!closeToBorder) {
+                closeToBorder = (10 > Math.abs(cursor - border))? true : false;
+              }
+            };
+          };
+
+          //Verifying if cursor is close to canvasBorder
+          for (var i in borders) {
+            if (borders.hasOwnProperty(i)) {borders[i].forEach(verifyProximity(cursor[i]));}
+          }
+
+
+          if (!closeToBorder) {
             firstPoint = {
-              x: e.offsetX,
-              y: e.offsetY
+              x: cursor.x,
+              y: cursor.y
             };
 
             circleProcess = setTimeout(function() {
@@ -56,7 +91,7 @@ function ShapeFactory(canvasId, stage) {
 
         mouseup: function(event) {
 
-          if (!shapeFactory.isClosed) {
+          if (!closeToBorder) {
             clearTimeout(circleProcess);
             clearInterval(incresingOfRadius);
 
