@@ -35,7 +35,6 @@ function Triangulator(stroke) {
   });
 
   this.getTriangles = function () {
-    console.log(triangleCollection);
     return triangleCollection;
   };
 

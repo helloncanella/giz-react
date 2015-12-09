@@ -24,6 +24,23 @@ Polyline.prototype = Object.create(Shape.prototype);
 
 Polyline.prototype.constructor = Polyline;
 
+Polyline.prototype.update = function(box2Data) {
+  Shape.prototype.update.call(this,box2Data);
+
+  this.data.measures.points.forEach(function(point, id, points){
+
+    point = JSON.parse(JSON.stringify(point));
+
+    points[id] = {
+      x: point.x + box2Data.displacement.x,
+      y: point.y + box2Data.displacement.y
+    };
+
+  });
+
+
+};
+
 Polyline.prototype.start = function(position) {
   var stage = this.stage;
 
@@ -43,6 +60,8 @@ Polyline.prototype.setCentroid = function() {
     isOpened = data.opened,
     points = this.data.measures.points,
     shape = this;
+
+  console.log(this.data);
 
   var centroid = calculateCentroid();
 

@@ -3,6 +3,8 @@ import Box2dOpenedPolyline from './Box2dOpenedPolyline';
 import Box2dClosedPolyline from './Box2dClosedPolyline';
 import Box2dCircle from './Box2dCircle';
 
+var displacement, lastPosition = [];
+
 function Physics(world) {
 
   var insertedBodies = 0;
@@ -33,6 +35,7 @@ function Physics(world) {
     listOfBodies.push(firstBody);
 
     var nextBody = firstBody.m_next;
+
     while (nextBody) {
       if (nextBody.m_mass !== 0) {
         listOfBodies.push(nextBody);
@@ -55,19 +58,32 @@ function Physics(world) {
         centroidVelocity = body.GetLinearVelocity(),
         PI = Math.PI;
 
+      var id = body.GetUserData();
+
+      if (!lastPosition[id]) {
+        lastPosition[id] = JSON.parse(JSON.stringify(centroidPosition));
+      } else {
+        displacement = {
+          x: centroidPosition.x - lastPosition[id].x,
+          y: centroidPosition.y - lastPosition[id].y
+        };
+        lastPosition[id] = JSON.parse(JSON.stringify(centroidPosition));
+      }
+
       var bodyData = {
         x: centroidPosition.x,
         y: centroidPosition.y,
         vx: centroidVelocity.x,
         vy: centroidVelocity.y,
-        angle: body.GetAngle() * 180 / PI
+        angle: body.GetAngle() * 180 / PI,
+        displacement: displacement || {x:0 , y:0}
       };
 
-      var id = body.GetUserData();
 
       bodyDataArray[id] = bodyData;
-    });
 
+      console.log(bodyData.displacement);
+    });
 
     return bodyDataArray;
   };

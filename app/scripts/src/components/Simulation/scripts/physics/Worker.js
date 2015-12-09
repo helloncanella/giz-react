@@ -59,8 +59,9 @@ module.exports = function(self) {
         break;
 
       case 'play':
+        console.log(world);
         engine = setInterval(function() {
-          world.Step(rate, 10, 10);
+          world.Step(rate, 10, 10);   
           bodyList = physics.getCustomListOfBodies();
 
           if (!_.isEmpty(bodyList)) {

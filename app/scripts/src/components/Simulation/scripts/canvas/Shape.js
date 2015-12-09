@@ -27,12 +27,17 @@ Shape.prototype.prepare = function() {};
 
 Shape.prototype.rescale = function(ratio) {
   let converter = new Converter(ratio);
-
   this.x = converter.convert(this.x, 'rescale');
   this.y = converter.convert(this.y, 'rescale');
+
+
   this.data = converter.convert(JSON.parse(JSON.stringify(this.data)), 'rescale');
 
+  console.table(this.data);
+
   this.setAABB().setCentroid();
+
+  this.stage.update();
 };
 
 Shape.prototype.setAABB = function() {
@@ -87,6 +92,12 @@ Shape.prototype.setListeners = function(){
   });
 
   return this;
+};
+
+Shape.prototype.update = function(data){
+  this.x = data.x;
+  this.y = data.y;
+  this.rotation = data.angle;
 };
 
 export default Shape;

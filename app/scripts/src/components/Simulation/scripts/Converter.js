@@ -34,7 +34,6 @@ Converter.prototype.convert = function(entity, destiny, exception) {
 
 Converter.prototype.modifyScale = function(scale){
   this.scale = scale;
-
   return this;
 };
 
