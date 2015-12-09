@@ -51,7 +51,6 @@ Circle.prototype.setCentroid = function(){
     .beginFill('red')
     .drawCircle(0, 0, this.data.measures.radius);
 
-
   this.stage.update();
 
   return this;
@@ -67,5 +66,10 @@ Circle.prototype.increaseRadius = function() {
   this.data.measures.radius = radius;
 
 };
+
+Circle.prototype.update = function(data) {
+  Shape.prototype.update.call(this,data);
+};
+
 
 export default Circle;

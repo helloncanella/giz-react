@@ -25,21 +25,20 @@ class Simulation extends React.Component {
     var canvasHeight = this.canvas.height();
 
     var bottom = new Limit({
-      x: 10,
-      y: canvasHeight - 10
-    }, canvasWidth - 10, 10);
+      x: 0.01,
+      y: canvasHeight - 0.01
+    }, canvasWidth - 0.01, 0.01);
     var left = new Limit({
       x: 0, y: 0
-    }, 10, canvasHeight);
+    }, 0.01, canvasHeight);
     var right = new Limit({
-      x: (canvasWidth - 10),
+      x: (canvasWidth - 0.01),
       y: 0
-    }, 10, canvasHeight);
+    }, 0.01, canvasHeight);
 
     var limits = [bottom, left, right,];
 
     var self = this;
-
 
     limits.forEach(function(limit) {
       self.stage.addChild(limit);

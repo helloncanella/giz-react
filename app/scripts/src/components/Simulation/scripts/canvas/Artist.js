@@ -35,28 +35,20 @@ function Artist(canvasId) {
   };
 
   this.update = function(bodyList) {
-
     var stage = this.stage;
 
     var children = stage.children;
 
-    for (var i = 0; i < children.length; i++) {
-      var body = bodyList[i];
+    children.forEach(function(child,i){
+      let body = bodyList[i];
 
-      if (body) {
-        children[i].x = body.x;
-        children[i].y = body.y;
-        children[i].rotation = body.angle;
+      if(body){
+        children[i].update(body);
       }
 
-      if(i==3){
-        console.table(children[i].data.centroid);
-      }
+    });
 
-
-      stage.update();
-
-    }
+    stage.update();
   };
 }
 

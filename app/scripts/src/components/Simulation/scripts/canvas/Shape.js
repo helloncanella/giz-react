@@ -94,4 +94,10 @@ Shape.prototype.setListeners = function(){
   return this;
 };
 
+Shape.prototype.update = function(data){
+  this.x = data.x;
+  this.y = data.y;
+  this.rotation = data.angle;
+};
+
 export default Shape;
