@@ -1,3 +1,3 @@
-# giz-react
+# Giz
 
 Using animation to teach mechanics.
